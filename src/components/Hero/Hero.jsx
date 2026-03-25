@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link } from 'react-router-dom';
 import './Hero.css';
-import TechAngleVideo from '../../../public/assets/TechAngleVideo.mp4';
+// import TechAngleVideo from '../../../public/assets/TechAngleVideo.mp4';
 
 gsap.registerPlugin(ScrollTrigger);
 
