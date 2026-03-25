@@ -5,15 +5,15 @@ import { Link } from 'react-router-dom';
 import './Course.css';
 
 // import iotImage from '../../../public/assets/Iot.jpg';
-import webImage from '../../../public/assets/web.jpg';
-import uiuxImage from '../../../public/assets/UiUx.avif';
-import roboticsImage from '../../../public/assets/robotics.jpg';
-import Financial from '../../../public/assets/Financial.jpg';
-import healthcareImage from '../../../public/assets/healthcare.webp';
-import medicalCodingImage from '../../../public/assets/medical-coding.jpg';
-import digitalMarketingImage from '../../../public/assets/digital-marketing.avif';
-import Skills from '../../../public/assets/Skill.jpg';
-import AiImage from '../../../public/assets/main-banner.webp';
+// import webImage from '../../../public/assets/web.jpg';
+// import uiuxImage from '../../../public/assets/UiUx.avif';
+// import roboticsImage from '../../../public/assets/robotics.jpg';
+// import Financial from '../../../public/assets/Financial.jpg';
+// import healthcareImage from '../../../public/assets/healthcare.webp';
+// import medicalCodingImage from '../../../public/assets/medical-coding.jpg';
+// import digitalMarketingImage from '../../../public/assets/digital-marketing.avif';
+// import Skills from '../../../public/assets/Skill.jpg';
+// import AiImage from '../../../public/assets/main-banner.webp';
 // import stockMarketImage from '../../assets/stock-market.webp';
 // import riskManagementImage from '../../assets/risk-management.jpg';
 // import wealthManagementImage from '../../assets/wealth-management.jpg';
@@ -238,55 +238,55 @@ const Courses = () => {
       id: 'mastery-data-platform', title: 'Mastery Data Platform', category: 'technology',
       description: 'Master the fundamentals of Web Design & Development. Learn to create stunning websites with HTML, CSS, JavaScript, PHP, WordPress, and more.',
       features: ['Gain hands-on experience with live projects', 'Learn from experienced industry professionals', 'Master both front-end and back-end development', 'Receive a course completion certificate', 'Build a strong portfolio for job opportunities'],
-      image: webImage, color: '#8b5cf6', slug: 'mastery-data-platform'
+      image: "/assets/web.jpg", color: '#8b5cf6', slug: 'mastery-data-platform'
     },
     {
       id: 'digital-designing', title: 'Digital Designing', category: 'technology',
       description: 'Dive into the world of User Interface and User Experience Design. Learn essential design principles using Figma, Adobe XD, and usability testing.',
       features: ['Master UI/UX Tools Like Figma And Adobe XD', 'Learn Wireframing, Prototyping, And User Journey Mapping', 'Work On Real-Time UI/UX Projects', 'Build A Strong Design Portfolio', 'Receive a Professional Course Completion Certificate'],
-      image: uiuxImage, color: '#ec4899', slug: 'digital-designing'
+      image: "/assets/UiUx.avif", color: '#ec4899', slug: 'digital-designing'
     },
     {
       id: 'google-certification', title: 'Google Certification Program', category: 'technology',
       description: 'Robotics revolutionizes industries through intelligent machines. Learn automation, AI integration, programming, and real-world applications.',
       features: ['Gain practical experience in robotics', 'Learn industry-relevant automation skills', 'Work on real-world robotics projects', 'Improve problem-solving & coding abilities', 'Get a recognized certification'],
-      image: roboticsImage, color: '#10b981', slug: 'google-certification'
+      image: "/assets/robotics.jpg", color: '#10b981', slug: 'google-certification'
     },
     {
       id: 'financial-accounting', title: 'Financial Accounting', category: 'finance',
       description: 'Master financial accounting principles and practices with TechAngle\'s comprehensive course.',
       features: ['Learn fundamental accounting concepts', 'Master financial statement preparation', 'Understand accounting standards and regulations', 'Gain practical experience with real-world scenarios', 'Receive a professional certification upon completion'],
-      image: Financial, color: '#f59e0b', slug: 'financial-accounting'
+      image: "/assets/financial.jpg", color: '#f59e0b', slug: 'financial-accounting'
     },
     {
       id: 'it-hardware-networking', title: 'IT Hardware and Networking', category: 'technology',
       description: 'Comprehensive training in IT hardware and networking fundamentals, covering installation, configuration, troubleshooting, and maintenance.',
       features: ['Hardware installation and configuration', 'Network setup and management', 'Troubleshooting techniques', 'Security best practices', 'Industry certifications'],
-      image: healthcareImage, color: '#06b6d4', slug: 'it-hardware-networking'
+      image: "/assets/healthcare.webp", color: '#06b6d4', slug: 'it-hardware-networking'
     },
     {
       id: 'management-level', title: 'Management Level', category: 'management',
       description: 'Learn management principles and practices for effective leadership in any organization.',
       features: ['Leadership skills development', 'Team management techniques', 'Project planning and execution', 'Communication and conflict resolution', 'Performance evaluation and feedback'],
-      image: medicalCodingImage, color: '#8b5cf6', slug: 'management-level'
+      image: "/assets/medical-coding.jpg", color: '#8b5cf6', slug: 'management-level'
     },
     {
       id: 'software-development', title: 'Software Development', category: 'technology',
       description: 'Master software development principles and practices including programming, testing, deployment, and maintenance.',
       features: ['Programming fundamentals', 'Software testing and debugging', 'Version control systems', 'Deployment strategies', 'Project management'],
-      image: digitalMarketingImage, color: '#ec4899', slug: 'software-development'
+      image: "/assets/digital-marketing.avif", color: '#ec4899', slug: 'software-development'
     },
     {
       id: 'soft-skills', title: 'Soft Skill', category: 'management',
       description: 'Combine human resources management with marketing strategies for comprehensive business development skills.',
       features: ['HR management fundamentals', 'Recruitment strategies', 'Marketing principles', 'Brand management', 'Employee engagement'],
-      image: Skills, color: '#6366f1', slug: 'soft-skills'
+      image: "/assets/Skill.jpg", color: '#6366f1', slug: 'soft-skills'
     },
     {
       id: 'ai-other-programs', title: 'AI And Other Programs', category: 'management',
       description: 'Learn research methodologies, innovation management, and product development strategies.',
       features: ['Research methodologies', 'Innovation management', 'Product development', 'Data analysis', 'Project management'],
-      image: AiImage, color: '#10b981', slug: 'ai-other-programs'
+      image: "/assets/main-banner.webp", color: '#10b981', slug: 'ai-other-programs'
     },
   ];
 
