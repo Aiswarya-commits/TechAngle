@@ -4,20 +4,20 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link } from 'react-router-dom';
 import './Course.css';
 
-import iotImage from '../../assets/iot.jpg';
-import webImage from '../../assets/web.jpg';
-import uiuxImage from '../../assets/UiUx.avif';
-import roboticsImage from '../../assets/robotics.jpg';
-import Financial from '../../assets/Financial.jpg';
-import healthcareImage from '../../assets/healthcare.webp';
-import medicalCodingImage from '../../assets/medical-coding.jpg';
-import digitalMarketingImage from '../../assets/digital-marketing.avif';
-import Skills from '../../assets/Skill.jpg';
-import AiImage from '../../assets/main-banner.webp';
-import stockMarketImage from '../../assets/stock-market.webp';
-import riskManagementImage from '../../assets/risk-management.jpg';
-import wealthManagementImage from '../../assets/wealth-management.jpg';
-import complianceImage from '../../assets/compliance.jpg';
+import iotImage from '../../../public/assets/Iot.jpg';
+import webImage from '../../../public/assets/web.jpg';
+import uiuxImage from '../../../public/assets/UiUx.avif';
+import roboticsImage from '../../../public/assets/robotics.jpg';
+import Financial from '../../../public/assets/Financial.jpg';
+import healthcareImage from '../../../public/assets/healthcare.webp';
+import medicalCodingImage from '../../../public/assets/medical-coding.jpg';
+import digitalMarketingImage from '../../../public/assets/digital-marketing.avif';
+import Skills from '../../../public/assets/Skill.jpg';
+import AiImage from '../../../public/assets/main-banner.webp';
+// import stockMarketImage from '../../assets/stock-market.webp';
+// import riskManagementImage from '../../assets/risk-management.jpg';
+// import wealthManagementImage from '../../assets/wealth-management.jpg';
+// import complianceImage from '../../assets/compliance.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 
