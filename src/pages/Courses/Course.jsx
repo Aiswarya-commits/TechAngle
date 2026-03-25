@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link } from 'react-router-dom';
 import './Course.css';
 
-import iotImage from '../../assets/iot.jpg';
+import iotImage from '../../assets/Iot.jpg';
 import webImage from '../../assets/web.jpg';
 import uiuxImage from '../../assets/UiUx.avif';
 import roboticsImage from '../../assets/robotics.jpg';
