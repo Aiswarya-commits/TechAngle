@@ -1,0 +1,157 @@
+import React from 'react';
+import { Button, SxProps, Theme } from '@mui/material';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import { toast } from 'react-toastify';
+import axiosInstance from '../../Utils/axiosInstance';
+import { backendbaseUrl } from '../../Utils/baseUrl';
+
+// ─── Generic Base Component ───────────────────────────────────────────────────
+
+interface TemplateDownloadButtonProps {
+  blobFunction: () => Promise<Blob>;
+  buttonText?: string;
+  fileName?: string;
+  additionalSx?: SxProps<Theme>;
+}
+
+const TemplateDownloadButton: React.FC<TemplateDownloadButtonProps> = ({
+  blobFunction,
+  buttonText = 'Download Template',
+  fileName = 'template',
+  additionalSx = {},
+}) => {
+  const handleDownload = async () => {
+    try {
+      const blob = await blobFunction();
+
+      // Timestamp up to milliseconds
+      const timestamp = new Date()
+        .toISOString()
+        .replace(/[-:T]/g, '')
+        .replace(/\..+/, (ms) => ms.replace('.', '_'));
+
+      // Split fileName into name and extension
+      const lastDot = fileName.lastIndexOf('.');
+      const baseName = lastDot !== -1 ? fileName.slice(0, lastDot) : fileName;
+      const extension = lastDot !== -1 ? fileName.slice(lastDot) : '';
+      const timestampedFileName = `${baseName}_${timestamp}${extension}`;
+
+      // Create download link
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', timestampedFileName);
+      document.body.appendChild(link);
+      link.click();
+
+      // Cleanup
+      setTimeout(() => {
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      }, 100);
+
+      toast.success(
+        `"${buttonText}" (${timestampedFileName}) downloaded successfully`
+      );
+    } catch (error) {
+      console.error('Template download error:', error);
+      toast.error(`Failed to download ${buttonText.toLowerCase()}`);
+    }
+  };
+
+  return (
+    <Button
+      startIcon={<FileDownloadIcon />}
+      onClick={handleDownload}
+      sx={{
+        height: { xs: '36px', sm: '32px' },
+        flex: { sm: '0 0 auto' },
+        textTransform: 'none',
+        fontSize: '0.75rem',
+        ...additionalSx,
+      }}
+    >
+      {buttonText}
+    </Button>
+  );
+};
+
+// ─── BrokerTemplateDownloadButton (built on top of TemplateDownloadButton) ────
+
+interface BrokerTemplateDownloadButtonProps {
+  apiEndpoint: string;
+  buttonText?: string;
+  fileName?: string;
+  sx?: SxProps<Theme>;
+}
+
+const BrokerTemplateDownloadButton: React.FC<BrokerTemplateDownloadButtonProps> = ({
+  apiEndpoint,
+  buttonText = 'Download Template',
+  fileName = 'template.csv',
+  sx = {},
+}) => {
+  const blobFunction = async (): Promise<Blob> => {
+    const response = await axiosInstance.get(
+      `${backendbaseUrl}${apiEndpoint}`,
+      {
+        responseType: 'blob',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    if (!response.data) {
+      throw new Error('No data received from server');
+    }
+
+    return new Blob([response.data]);
+  };
+
+  return (
+    <TemplateDownloadButton
+      blobFunction={blobFunction}
+      buttonText={buttonText}
+      fileName={fileName}
+      additionalSx={sx}
+    />
+  );
+};
+
+export default BrokerTemplateDownloadButton;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+                title: "Deal Blotter",
+                type: "sub",
+                menu: [
+                  {
+                    title: "Organization Trades",
+                    type: "link",
+                    url: `${process.env.PUBLIC_URL}/paper/deal-bottler/organization-trades`,
+                    resource: "paper_trading_read",
+                  },
+                  {
+                    title: "Counterparty Trades",
+                    type: "link",
+                    url: `${process.env.PUBLIC_URL}/paper/deal-bottler/counterparty-trades`,
+                    resource: "paper_position_read",
+                  },
+                ],
+                url: "",
+              },

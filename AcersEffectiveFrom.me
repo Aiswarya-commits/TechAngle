@@ -1,0 +1,938 @@
+import React, {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  MouseEvent,
+} from "react";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
+import BrowserUpdatedIcon from "@mui/icons-material/BrowserUpdated";
+import Form from "react-bootstrap/Form";
+import {
+  MaterialReactTable,
+  type MRT_ColumnDef,
+  MRT_ColumnFiltersState,
+  MRT_DensityState,
+  type MRT_Row,
+  MRT_SortingState,
+  MRT_VisibilityState,
+  useMaterialReactTable,
+  type MRT_TableOptions,
+} from "material-react-table";
+import HistoryIcon from "@mui/icons-material/History";
+import {
+  Box,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+  Tooltip,
+  Autocomplete,
+  TextField,
+} from "@mui/material";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Accordion from "react-bootstrap/Accordion";
+import { Container, Row } from "reactstrap";
+import axiosInstance from "../../Utils/axiosInstance";
+import { backendbaseUrl } from "../../Utils/baseUrl";
+import { toast } from "react-toastify";
+import styled from "styled-components";
+import { showDeleteConfirmModal } from "../../Components/DeleteModal/DeleteModal";
+import { CompactTextField } from "../../Components/SharedComponents/SharedComponents";
+import FileUpload from "../../Components/FileUpload/FileUpload";
+import BrokerTemplateDownloadButton from "../../Components/TemplateDownloadButton/BrokerTemplateDownloadButton";
+import { useNavigate } from "react-router-dom";
+import { BookOption, ProfitShare } from "../../Types/ProfitShareByBook.type";
+
+
+export const StyledTableFirstSecond = styled.div`
+  thead tr:first-child th:first-child { width: 4% !important; }
+  thead tr:first-child th:nth-child(2) { width: 1% !important; }
+`;
+
+
+const ProfitShareExample = () => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  const [validationErrors, setValidationErrors] = useState<Record<string, string | undefined>>({});
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({
+    book: "", profit_share_percentage: "", effective_from: "", effective_to: "",
+  });
+  const [touched, setTouched] = useState<Record<string, boolean>>({
+    book: false, profit_share_percentage: false, effective_from: false, effective_to: false,
+  });
+
+  const [selectedBook, setSelectedBook] = useState<BookOption | null>(null);
+  const [profitSharePercentage, setProfitSharePercentage] = useState<string>("");
+  const [effectiveFrom, setEffectiveFrom] = useState<string>("");
+  const [effectiveTo, setEffectiveTo] = useState<string>("");
+  const [active, setActive] = useState<boolean>(true);
+  const [inputBackgroundColour, setInputBackgroundColour] = useState("");
+
+  const isFirstRender = useRef(true);
+  const [filterModes, setFilterModes] = useState<{ mode: string; id: string; value: unknown }[]>([]);
+  const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<MRT_VisibilityState>({});
+  const [density, setDensity] = useState<MRT_DensityState>("comfortable");
+  const [globalFilter, setGlobalFilter] = useState<string | undefined>(undefined);
+  const [showGlobalFilter, setShowGlobalFilter] = useState(true);
+  const [showColumnFilters, setShowColumnFilters] = useState(true);
+  const [sorting, setSorting] = useState<MRT_SortingState>([]);
+  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 15 });
+  const [totalCount, setTotalCount] = useState(0);
+  const [showRowResizing, setShowRowResizing] = useState<boolean>(true);
+  const [openFileUpload, setOpenFileUpload] = useState<boolean>(false);
+
+  const handleFileUploadOpen = () => setOpenFileUpload(true);
+  const handleFileUploadClose = () => setOpenFileUpload(false);
+
+  const { data: bookOptions = [] } = useQuery<BookOption[]>({
+    queryKey: ["bookDropdown"],
+    queryFn: async () => {
+      const response = await axiosInstance.get(`${backendbaseUrl}/paper-app/legal-entity-book-dropdown/`);
+      return response.data as BookOption[];
+    },
+    refetchOnWindowFocus: false,
+  });
+
+  const handleFileUploadSubmit = async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      const response = await axiosInstance.post(
+        `${backendbaseUrl}/paper-app/upload/profit-share/`,
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+      queryClient.invalidateQueries({ queryKey: ["profitShares"] });
+      return { success: true, message: "File uploaded successfully!", data: response.data };
+    } catch (error: any) {
+      return { success: false, message: error.response?.data?.message || "Failed to upload file" };
+    }
+  };
+
+  const validateField = (field: string, value: string): string | null => {
+    if (field === "book" && !value) return "Book is Required";
+
+    if (field === "profit_share_percentage") {
+      if (!value && value !== "0") return "Profit Share % is Required";
+      if (!/^-?\d*\.?\d+$/.test(value)) return "Must be a numeric value (e.g. 25.00)";
+      const num = parseFloat(value);
+      if (isNaN(num)) return "Must be a numeric value (e.g. 25.00)";
+      if (num < 0) return "Value must be ≥ 0";
+      if (num > 100) return "Value must be ≤ 100";
+    }
+
+    if (field === "effective_from" && !value) return "Effective From is Required";
+    return null;
+  };
+
+  const handleFocus = (field: string) => setTouched((prev) => ({ ...prev, [field]: true }));
+
+  const validateOnBlur = (field: string) => (value: string): string | null => {
+    const error = validateField(field, value);
+    setFormErrors((prev) => ({ ...prev, [field]: error || "" }));
+    return error;
+  };
+
+  const handleProfitShareChange = (value: string) => {
+    setProfitSharePercentage(value);
+    if (touched.profit_share_percentage) {
+      const error = validateField("profit_share_percentage", value);
+      setFormErrors((prev) => ({ ...prev, profit_share_percentage: error || "" }));
+    }
+  };
+
+  useEffect(() => {
+    sessionStorage.clear();
+    const cf = sessionStorage.getItem("mrt_columnFilters_profitshare_1");
+    const cv = sessionStorage.getItem("mrt_columnVisibility_profitshare_1");
+    const d = sessionStorage.getItem("mrt_density_profitshare_1");
+    const gf = sessionStorage.getItem("mrt_globalFilter_profitshare_1");
+    const sgf = sessionStorage.getItem("mrt_showGlobalFilter_profitshare_1");
+    const scf = sessionStorage.getItem("mrt_showColumnFilters_profitshare_1");
+    const s = sessionStorage.getItem("mrt_sorting_profitshare_1");
+    if (cf) setColumnFilters(JSON.parse(cf));
+    if (cv) setColumnVisibility(JSON.parse(cv));
+    if (d) setDensity(JSON.parse(d));
+    if (gf) setGlobalFilter(JSON.parse(gf) || undefined);
+    if (sgf) setShowGlobalFilter(JSON.parse(sgf));
+    if (scf) setShowColumnFilters(JSON.parse(scf));
+    if (s) setSorting(JSON.parse(s));
+    isFirstRender.current = false;
+  }, []);
+
+  useEffect(() => { if (!isFirstRender.current) sessionStorage.setItem("mrt_columnFilters_profitshare_1", JSON.stringify(columnFilters)); }, [columnFilters]);
+  useEffect(() => { if (!isFirstRender.current) sessionStorage.setItem("mrt_columnVisibility_profitshare_1", JSON.stringify(columnVisibility)); }, [columnVisibility]);
+  useEffect(() => { if (!isFirstRender.current) sessionStorage.setItem("mrt_density_profitshare_1", JSON.stringify(density)); }, [density]);
+  useEffect(() => { if (!isFirstRender.current) sessionStorage.setItem("mrt_globalFilter_profitshare_1", JSON.stringify(globalFilter ?? "")); }, [globalFilter]);
+  useEffect(() => { if (!isFirstRender.current) sessionStorage.setItem("mrt_showGlobalFilter_profitshare_1", JSON.stringify(showGlobalFilter)); }, [showGlobalFilter]);
+  useEffect(() => { if (!isFirstRender.current) sessionStorage.setItem("mrt_showColumnFilters_profitshare_1", JSON.stringify(showColumnFilters)); }, [showColumnFilters]);
+  useEffect(() => { if (!isFirstRender.current) sessionStorage.setItem("mrt_sorting_profitshare_1", JSON.stringify(sorting)); }, [sorting]);
+
+  const columns = useMemo<MRT_ColumnDef<ProfitShare>[]>(
+    () => [
+      {
+        accessorKey: "book_name",
+        header: "Book",
+        enableEditing: false,
+        muiTableBodyCellProps: ({ row, table }) => ({
+          sx: {
+            cursor: "pointer",
+            "&:hover": { backgroundColor: "rgba(44,4,4,0.05)" },
+            ...(table.getState().editingRow?.id === row.id && {
+              backgroundColor: "rgba(0,128,0,0.1)",
+              transition: "background-color 0.3s ease",
+            }),
+          },
+        }),
+      },
+      {
+        accessorKey: "profit_share_percentage",
+        header: "Profit Share %",
+        enableEditing: true,
+        muiTableBodyCellProps: ({ row, table }) => ({
+          onDoubleClick: () => table.setEditingRow(row),
+          sx: {
+            cursor: "pointer",
+            "&:hover": { backgroundColor: "rgba(44,4,4,0.05)" },
+            ...(table.getState().editingRow?.id === row.id && {
+              backgroundColor: "rgba(0,128,0,0.1)",
+              transition: "background-color 0.3s ease",
+            }),
+          },
+        }),
+        muiEditTextFieldProps: {
+          name: "profit_share_percentage",
+          required: true,
+          type: "number",
+          inputProps: { min: 0, max: 100, step: 0.01 },
+          error: !!validationErrors?.profit_share_percentage,
+          helperText: validationErrors?.profit_share_percentage,
+          onFocus: () => setValidationErrors((prev) => ({ ...prev, profit_share_percentage: undefined })),
+        },
+      },
+      {
+        accessorKey: "effective_from",
+        header: "Effective From",
+        enableEditing: true,
+        muiTableBodyCellProps: ({ row, table }) => ({
+          onDoubleClick: () => table.setEditingRow(row),
+          sx: { cursor: "pointer", "&:hover": { backgroundColor: "rgba(44,4,4,0.05)" } },
+        }),
+        muiEditTextFieldProps: {
+          name: "effective_from",
+          required: true,
+          type: "date",
+          error: !!validationErrors?.effective_from,
+          helperText: validationErrors?.effective_from,
+          InputLabelProps: { shrink: true },
+          onFocus: () => setValidationErrors((prev) => ({ ...prev, effective_from: undefined })),
+        },
+      },
+      {
+        accessorKey: "effective_to",
+        header: "Effective To",
+        enableEditing: true,
+        Cell: ({ cell }) => cell.getValue<string | null>() ?? "—",
+        muiTableBodyCellProps: ({ row, table }) => ({
+          onDoubleClick: () => table.setEditingRow(row),
+          sx: { cursor: "pointer", "&:hover": { backgroundColor: "rgba(44,4,4,0.05)" } },
+        }),
+        muiEditTextFieldProps: {
+          name: "effective_to",
+          type: "date",
+          InputLabelProps: { shrink: true },
+          error: !!validationErrors?.effective_to,
+          helperText: validationErrors?.effective_to,
+          onFocus: () => setValidationErrors((prev) => ({ ...prev, effective_to: undefined })),
+        },
+      },
+      {
+        accessorKey: "active",
+        header: "Active",
+        size: 100,
+        enableEditing: true,
+        Cell: ({ cell }) => (
+          <span style={{ color: cell.getValue<boolean>() ? "#2e7d32" : "#c62828", fontWeight: 600 }}>
+            {cell.getValue<boolean>() ? "Yes" : "No"}
+          </span>
+        ),
+        Edit: ({ row, table }) => {
+          const currentVal =
+            row._valuesCache?.active !== undefined
+              ? row._valuesCache.active
+              : row.original.active;
+          return (
+            <Select
+              value={currentVal === true ? "true" : "false"}
+              onChange={(e) => {
+                const newBool = e.target.value === "true";
+                row._valuesCache = { ...row._valuesCache, active: newBool };
+                table.setEditingRow({ ...row });
+              }}
+              size="small"
+              sx={{ fontSize: "0.75rem", minWidth: 80, height: 32, "& .MuiSelect-select": { py: "4px" } }}
+            >
+              <MenuItem value="true">Yes</MenuItem>
+              <MenuItem value="false">No</MenuItem>
+            </Select>
+          );
+        },
+        muiTableBodyCellProps: ({ row, table }) => ({
+          onDoubleClick: () => table.setEditingRow(row),
+          sx: { cursor: "pointer", "&:hover": { backgroundColor: "rgba(44,4,4,0.05)" } },
+        }),
+      },
+      {
+        accessorKey: "last_updated_by",
+        header: "Last Updated By",
+        enableEditing: false,
+      },
+      {
+        accessorKey: "updated_at",
+        header: "Last Updated",
+        enableEditing: false,
+        Cell: ({ cell }) => {
+          const val = cell.getValue<string | null>();
+          return val ? new Date(val).toLocaleDateString() : "—";
+        },
+      },
+    ],
+    [validationErrors]
+  );
+
+  const { data, isError: isLoadingError, isFetching, isLoading } =
+    useGetProfitShares(filterModes, pagination, setTotalCount, sorting);
+
+  const { mutateAsync: createProfitShare, isPending: isCreating } = useCreateProfitShare();
+  const { mutateAsync: updateProfitShare, isPending: isUpdating } = useUpdateProfitShare();
+  const { mutateAsync: deleteProfitShare, isPending: isDeleting } = useDeleteProfitShare();
+
+  const createRecord = async (payload: {
+    book: string;
+    profit_share_percentage: number;
+    effective_from: string;
+    effective_to: string | null;
+    active: boolean;
+  }) => {
+    try {
+      await axiosInstance.post(`${backendbaseUrl}/paper-app/legal-entity-profit-share/`, payload);
+      queryClient.invalidateQueries({ queryKey: ["profitShares"] });
+      toast.success("Profit Share added successfully!");
+    } catch (error: any) {
+      const msg =
+        error.response?.data?.detail ||
+        error.response?.data?.message ||
+        "Failed to add Profit Share.";
+      toast.error(msg);
+      throw error;
+    }
+  };
+
+  const formCreate = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setTouched({ book: true, profit_share_percentage: true, effective_from: true, effective_to: true });
+
+    const bookError = validateField("book", selectedBook?.id || "");
+    const pctError = validateField("profit_share_percentage", profitSharePercentage);
+    const fromError = validateField("effective_from", effectiveFrom);
+
+    if (bookError || pctError || fromError) {
+      setFormErrors({
+        book: bookError || "",
+        profit_share_percentage: pctError || "",
+        effective_from: fromError || "",
+        effective_to: "",
+      });
+      const firstError = bookError || pctError || fromError;
+      toast.error(firstError || "Please fix validation errors before submitting.");
+      return;
+    }
+
+    await createRecord({
+      book: selectedBook!.id,
+      profit_share_percentage: parseFloat(profitSharePercentage),
+      effective_from: effectiveFrom,
+      effective_to: effectiveTo || null,
+      active,
+    });
+
+    setSelectedBook(null);
+    setProfitSharePercentage("");
+    setEffectiveFrom("");
+    setEffectiveTo("");
+    setActive(true);
+    setTouched({ book: false, profit_share_percentage: false, effective_from: false, effective_to: false });
+    setFormErrors({ book: "", profit_share_percentage: "", effective_from: "", effective_to: "" });
+  };
+
+  const handleCreateRow: MRT_TableOptions<ProfitShare>["onCreatingRowSave"] = async ({ values, table }) => {
+    const errors: Record<string, string | undefined> = {};
+    if (!values.book) errors.book = "Book is Required";
+
+    const pctErr = validateField("profit_share_percentage", String(values.profit_share_percentage ?? ""));
+    if (pctErr) errors.profit_share_percentage = pctErr;
+
+    if (!values.effective_from) errors.effective_from = "Effective From is Required";
+    if (Object.values(errors).some(Boolean)) { setValidationErrors(errors); return; }
+    setValidationErrors({});
+    await createRecord({
+      book: values.book,
+      profit_share_percentage: parseFloat(values.profit_share_percentage),
+      effective_from: values.effective_from,
+      effective_to: values.effective_to || null,
+      active: values.active ?? true,
+    });
+    table.setCreatingRow(null);
+  };
+
+  const handleEditSave: MRT_TableOptions<ProfitShare>["onEditingRowSave"] = async ({ values, table, row }) => {
+    const merged: ProfitShare = { ...row.original, ...values };
+
+    const pctError = validateField("profit_share_percentage", String(merged.profit_share_percentage));
+    if (pctError) {
+      setValidationErrors({ profit_share_percentage: pctError });
+      toast.error(pctError);
+      return;
+    }
+
+    if (!merged.effective_from) {
+      toast.error("Effective From is Required");
+      return;
+    }
+
+    setValidationErrors({});
+    try {
+      await updateProfitShare({
+        id: merged.id,
+        book: merged.book,
+        profit_share_percentage: parseFloat(String(merged.profit_share_percentage)),
+        effective_from: merged.effective_from,
+        effective_to: merged.effective_to || null,
+        active: merged.active ?? true,
+      });
+      table.setEditingRow(null);
+      toast.success("Profit Share updated successfully");
+    } catch {
+      toast.error("Failed to update Profit Share");
+    }
+  };
+
+  const openDeleteConfirmModal = (row: MRT_Row<ProfitShare>) => {
+    showDeleteConfirmModal(
+      "Are you sure you want to delete this Profit Share record?",
+      "Deleting...",
+      () => {
+        deleteProfitShare(row.original.id)
+          .then(() => toast.success("Profit Share deleted successfully!"))
+          .catch(() => toast.error("Failed to delete Profit Share. Please try again."));
+      }
+    );
+  };
+
+  const handleCopyRow = (row: MRT_Row<ProfitShare>) => {
+    if (!row) return;
+    const textToCopy = JSON.stringify(row.original, null, 2);
+    navigator.clipboard.writeText(textToCopy);
+    try {
+      const jsonData = JSON.parse(textToCopy) as ProfitShare;
+      setSelectedBook(bookOptions.find((b) => b.id === jsonData.book) || null);
+      setProfitSharePercentage(String(jsonData.profit_share_percentage));
+      setEffectiveFrom(jsonData.effective_from);
+      setEffectiveTo(jsonData.effective_to || "");
+      setActive(jsonData.active ?? true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      toast.success("Copied and pasted successfully");
+      setInputBackgroundColour("#83bf6e26");
+      setTimeout(() => setInputBackgroundColour(""), 2400);
+    } catch (error) { console.error("Invalid JSON:", error); }
+  };
+
+  interface ContextMenuPosition { mouseX: number; mouseY: number }
+  const [contextMenu, setContextMenu] = useState<ContextMenuPosition | null>(null);
+
+  const handleContextMenu = (event: MouseEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setContextMenu(contextMenu === null ? { mouseX: event.clientX + 2, mouseY: event.clientY - 6 } : null);
+  };
+  const handleClose = () => setContextMenu(null);
+
+  const handlePaste = async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      const jsonData = JSON.parse(text) as ProfitShare;
+      setSelectedBook(bookOptions.find((b) => b.id === jsonData.book) || null);
+      setProfitSharePercentage(String(jsonData.profit_share_percentage));
+      setEffectiveFrom(jsonData.effective_from);
+      setEffectiveTo(jsonData.effective_to || "");
+      setActive(jsonData.active ?? true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      toast.success("Copied and pasted successfully");
+      setInputBackgroundColour("#83bf6e26");
+      setTimeout(() => setInputBackgroundColour(""), 2400);
+    } catch (err) { console.error("Failed to read clipboard:", err); }
+    handleClose();
+  };
+
+  const handleResizing = () => { setShowRowResizing(!showRowResizing); handleClose(); };
+
+  const handleExportRows = (rows: MRT_Row<ProfitShare>[]) => console.log(rows.map((r) => r.original));
+
+  const handleDataDownload = async () => {
+    try {
+      const response = await axiosInstance.get(
+        `${backendbaseUrl}/paper-app/legal-entity-profit-share/export-delete`,
+        { responseType: "blob", headers: { "Content-Type": "application/json" } }
+      );
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "all_profit_shares.csv");
+      document.body.appendChild(link);
+      link.click();
+      setTimeout(() => { document.body.removeChild(link); window.URL.revokeObjectURL(url); }, 100);
+      toast.success("All Data Exported Successfully");
+    } catch { toast.error("Failed to download data"); }
+  };
+
+  const handleBulkDelete = async (rows: MRT_Row<ProfitShare>[]) => {
+    const rowIds = rows.map((r) => r.original.id);
+    if (!rowIds.length) { toast.warn("Please select at least one record to delete."); return; }
+    showDeleteConfirmModal(
+      `Delete ${rowIds.length} selected record(s)?`,
+      `This will permanently delete ${rowIds.length} record(s). Continue?`,
+      async () => {
+        const loadingToast = toast.loading(`Deleting ${rowIds.length} record(s)...`);
+        try {
+          const response = await axiosInstance.delete(
+            `${backendbaseUrl}/paper-app/legal-entity-profit-share/export-delete/`,
+            { data: { ids: rowIds }, headers: { "Content-Type": "application/json", "X-Requested-With": "XMLHttpRequest" } }
+          );
+          if (response.status === 200) {
+            toast.success(`Successfully deleted ${rowIds.length} record(s)`);
+            queryClient.invalidateQueries({ queryKey: ["profitShares"] });
+            table.setRowSelection({});
+          } else { throw new Error(response.data?.message || "Unknown error"); }
+        } catch (error: any) {
+          toast.error(`Deletion failed: ${error.response?.data?.detail || error.message || "Failed"}`);
+        } finally { toast.dismiss(loadingToast); }
+      }
+    );
+  };
+
+  const handleHistory = () => navigate("/settings/log/history/profit-share");
+  const openRowHistory = (row: MRT_Row<ProfitShare>) =>
+    navigate(`/settings/log/history/profit-share/${row.original.id}`);
+
+  useEffect(() => {
+    setFilterModes(
+      columnFilters.map((filter) => ({
+        ...filter,
+        mode: table.getColumn(filter.id)?.getFilterFn()?.name || "contains",
+      }))
+    );
+  }, [columnFilters]);
+
+  const table = useMaterialReactTable({
+    columns,
+    data: data?.results || [],
+    enableStickyHeader: true,
+    enableStickyFooter: true,
+    enableClickToCopy: true,
+    enableKeyboardShortcuts: true,
+    enableColumnActions: true,
+    enableColumnDragging: true,
+    enableGlobalFilter: false,
+    enableGrouping: true,
+    enableHiding: true,
+    enableSorting: true,
+    enableColumnPinning: true,
+    enableRowSelection: true,
+    enableColumnResizing: true,
+    enableFilterMatchHighlighting: true,
+    enableDensityToggle: false,
+    enableEditing: true,
+    createDisplayMode: "row",
+    editDisplayMode: "row",
+    manualSorting: true,
+    manualPagination: true,
+    manualFiltering: true,
+    rowCount: totalCount,
+    getRowId: (row) => row.id,
+    enableColumnFilterModes: true,
+    enableColumnOrdering: true,
+    enableRowOrdering: false,
+    onPaginationChange: setPagination,
+    onColumnFiltersChange: setColumnFilters,
+    onColumnVisibilityChange: setColumnVisibility,
+    onDensityChange: setDensity,
+    onGlobalFilterChange: setGlobalFilter,
+    onShowColumnFiltersChange: setShowColumnFilters,
+    onShowGlobalFilterChange: setShowGlobalFilter,
+    onSortingChange: setSorting,
+
+    muiTopToolbarProps: { sx: { backgroundColor: "#fff", padding: "8px" }, className: "top-toolbar-wrapper__new" },
+    muiTableContainerProps: { sx: { backgroundColor: "#fff" }, className: "table-container-wrapper__new" },
+    muiTableFooterProps: { sx: { backgroundColor: "#fff" }, className: "table-footer-wrapper__new" },
+    muiBottomToolbarProps: { sx: { backgroundColor: "#fff", padding: "8px" }, className: "bottom-toolbar-wrapper__new" },
+
+    muiTableBodyRowProps: ({ row, table }) => ({
+      onKeyDown: (event: React.KeyboardEvent<HTMLTableRowElement>) => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          const editingRow = table.getState().editingRow;
+          if (editingRow) {
+            const saveHandler = table.options.onEditingRowSave;
+            if (saveHandler) {
+              const newedit = { ...editingRow.original, ...editingRow._valuesCache };
+              saveHandler({ exitEditingMode: () => table.setEditingRow(null), row: editingRow, table, values: newedit });
+            }
+          }
+        }
+      },
+    }),
+
+    filterFns: { customFilterFn: (row, id, filterValue) => row.getValue(id) === filterValue },
+
+    displayColumnDefOptions: {
+      "mrt-row-actions": { enableColumnActions: true, size: 200, muiTableHeadCellProps: { sx: { minWidth: "200px" } } },
+      "mrt-row-numbers": { enableColumnDragging: true, enableColumnOrdering: true, enableResizing: true, muiTableHeadCellProps: { sx: { fontSize: "1.2rem" } } },
+      "mrt-row-select": { enableColumnActions: true, enableHiding: true },
+    },
+
+    muiTableHeadCellProps: {
+      sx: { border: "1px solid #e0e0e087", fontStyle: "normal", fontWeight: "normal", overflow: "hidden" },
+    },
+    muiTablePaperProps: { elevation: 0, sx: { borderRadius: "0", border: "0" } },
+    muiToolbarAlertBannerProps: isLoadingError ? { color: "error", children: "Error loading data" } : undefined,
+
+    onCreatingRowCancel: () => setValidationErrors({}),
+    onCreatingRowSave: handleCreateRow,
+    onEditingRowCancel: () => setValidationErrors({}),
+    onEditingRowSave: handleEditSave,
+    localization: { filterCustomFilterFn: "Custom Filter Fn" } as any,
+
+    renderTopToolbarCustomActions: ({ table }) => (
+      <Box sx={{ display: "flex", gap: "6px", padding: "0px", flexWrap: "wrap" }}>
+        <Button startIcon={<UploadFileIcon />} onClick={handleFileUploadOpen}>Upload File</Button>
+        <Button onClick={handleDataDownload} startIcon={<BrowserUpdatedIcon />}>Export All Data</Button>
+        <Button onClick={handleHistory} startIcon={<HistoryIcon />}>History</Button>
+        <BrokerTemplateDownloadButton
+          apiEndpoint="/paper-app/download-profit-share-template/"
+          buttonText="Download Template"
+          fileName="profit_share_template.csv"
+        />
+        <Button
+          disabled={!table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()}
+          onClick={() => handleExportRows(table.getSelectedRowModel().rows)}
+          startIcon={<FileDownloadIcon />}
+        >
+          Export Selected Rows
+        </Button>
+        {(table.getIsSomeRowsSelected() || table.getIsAllRowsSelected()) && (
+          <Button style={{ color: "red" }} onClick={() => handleBulkDelete(table.getSelectedRowModel().rows)} startIcon={<DeleteIcon />}>
+            Delete Selected ({table.getSelectedRowModel().rows.length})
+          </Button>
+        )}
+      </Box>
+    ),
+
+    renderRowActions: ({ row, table }) => (
+      <Box sx={{ display: "flex", gap: "1rem" }}>
+        <Tooltip title="Edit"><IconButton onClick={() => table.setEditingRow(row)}><EditIcon /></IconButton></Tooltip>
+        <Tooltip title="Delete"><IconButton color="error" onClick={() => openDeleteConfirmModal(row)}><DeleteIcon /></IconButton></Tooltip>
+        <Tooltip title="Copy Row"><IconButton onClick={() => handleCopyRow(row)}><ContentCopyIcon /></IconButton></Tooltip>
+        <Tooltip title="History"><IconButton color="default" onClick={() => openRowHistory(row)}><HistoryIcon /></IconButton></Tooltip>
+      </Box>
+    ),
+
+    state: {
+      columnVisibility, sorting, columnFilters, pagination, isLoading,
+      isSaving: isCreating || isUpdating || isDeleting,
+      showAlertBanner: isLoadingError,
+      showProgressBars: isFetching,
+      showColumnFilters: true,
+    },
+  });
+
+  return (
+    <div className="page-body">
+      <Container fluid>
+        <Row>
+          <div>
+            <div className="table-ad">
+              <Accordion defaultActiveKey="0" className="table-ad__addInputs">
+                <Accordion.Item eventKey="0">
+                  <Accordion.Header className="accordion_button">Add New Profit Share</Accordion.Header>
+                  <Accordion.Body>
+                    <Form onSubmit={formCreate}>
+                      <div className="form_contain">
+                        <div
+                          className={`flex formWrapper ${inputBackgroundColour !== "" ? "inputboxcustom" : ""}`}
+                          style={{ backgroundColor: inputBackgroundColour }}
+                        >
+                          <Box sx={{ width: "100%", p: { xs: 1, sm: 1 }, pt: "20px !important", backgroundColor: "#ffff", borderRadius: "4px", border: "1px solid #e0e0e0" }}>
+                            <Box
+                              className="form_default"
+                              sx={{
+                                display: "flex", flexWrap: "wrap", alignItems: "flex-start",
+                                justifyContent: "start", gap: 0.5,
+                                "& > *": { minWidth: { xs: "100%", sm: "48%", md: "23%", lg: "15%", xl: "7.5%" } },
+                              }}
+                            >
+                              <Autocomplete
+                                options={bookOptions}
+                                getOptionLabel={(o) => o.name}
+                                value={selectedBook}
+                                onChange={(_, newVal) => {
+                                  setSelectedBook(newVal);
+                                  if (touched.book) {
+                                    const error = validateField("book", newVal?.id || "");
+                                    setFormErrors((prev) => ({ ...prev, book: error || "" }));
+                                  }
+                                }}
+                                onFocus={() => handleFocus("book")}
+                                onBlur={() => {
+                                  const error = validateField("book", selectedBook?.id || "");
+                                  setFormErrors((prev) => ({ ...prev, book: error || "" }));
+                                }}
+                                isOptionEqualToValue={(o, v) => o.id === v.id}
+                                sx={{ maxWidth: { sm: "200px", xs: "100%" } }}
+                                renderInput={(params) => (
+                                  <TextField
+                                    {...params}
+                                    label="Book *"
+                                    size="small"
+                                    error={Boolean(formErrors.book && touched.book)}
+                                    helperText={touched.book ? formErrors.book : ""}
+                                    InputLabelProps={{ shrink: true }}
+                                    sx={{
+                                      fontSize: "0.75rem",
+                                      "& .MuiInputBase-root": {
+                                        height: "32px",
+                                        fontSize: "0.75rem",
+                                        padding: "0 !important",
+                                      },
+                                      "& .MuiInputBase-input": {
+                                        padding: "4px 6px !important",
+                                        fontSize: "0.75rem",
+                                      },
+                                      "& .MuiAutocomplete-endAdornment": {
+                                        top: "50%",
+                                        transform: "translateY(-50%)",
+                                      },
+                                    }}
+                                  />
+                                )}
+                              />
+
+                              <CompactTextField
+                                label="Profit Share %"
+                                value={profitSharePercentage}
+                                onChange={handleProfitShareChange}
+                                name="profit_share_percentage"
+                                type="number"
+                                error={Boolean(formErrors.profit_share_percentage && touched.profit_share_percentage)}
+                                helperText={
+                                  touched.profit_share_percentage && formErrors.profit_share_percentage
+                                    ? formErrors.profit_share_percentage
+                                    : ""
+                                }
+                                validateOnBlur={validateOnBlur("profit_share_percentage")}
+                                slotProps={{ inputLabel: { shrink: true } }}
+                                onFocus={() => handleFocus("profit_share_percentage")}
+                                sx={{ maxWidth: { sm: "200px", xs: "100%" } }}
+                              />
+
+                              <CompactTextField
+                                label="Effective From"
+                                value={effectiveFrom}
+                                onChange={(value) => setEffectiveFrom(value)}
+                                name="effective_from"
+                                type="date"
+                                error={Boolean(formErrors.effective_from && touched.effective_from)}
+                                validateOnBlur={validateOnBlur("effective_from")}
+                                slotProps={{ inputLabel: { shrink: true } }}
+                                onFocus={() => handleFocus("effective_from")}
+                                sx={{ maxWidth: { sm: "200px", xs: "100%" } }}
+                              />
+
+                              <CompactTextField
+                                label="Effective To"
+                                value={effectiveTo}
+                                onChange={(value) => setEffectiveTo(value)}
+                                name="effective_to"
+                                type="date"
+                                slotProps={{ inputLabel: { shrink: true } }}
+                                onFocus={() => handleFocus("effective_to")}
+                                sx={{ maxWidth: { sm: "200px", xs: "100%" } }}
+                              />
+
+                              <FormControl size="small" sx={{ maxWidth: { sm: "150px", xs: "100%" }, minWidth: "120px" }}>
+                                <InputLabel shrink>Active</InputLabel>
+                                <Select
+                                  label="Active"
+                                  value={active ? "true" : "false"}
+                                  onChange={(e) => setActive(e.target.value === "true")}
+                                  notched
+                                  sx={{ fontSize: "0.75rem", height: "32px" }}
+                                >
+                                  <MenuItem value="true">Yes</MenuItem>
+                                  <MenuItem value="false">No</MenuItem>
+                                </Select>
+                              </FormControl>
+
+                              <Button
+                                variant="contained"
+                                fullWidth
+                                type="submit"
+                                sx={{
+                                  height: { xs: "36px", sm: "32px" },
+                                  flex: { xs: "1 1 auto", sm: "0 0 auto" },
+                                  minWidth: { xs: "100%", sm: "100px" },
+                                  maxWidth: { sm: "150px" },
+                                  backgroundColor: "#00bcd4",
+                                  textTransform: "none",
+                                  fontSize: "0.75rem",
+                                  "&:hover": { backgroundColor: "#008c9e" },
+                                }}
+                              >
+                                Add
+                              </Button>
+                            </Box>
+                          </Box>
+                        </div>
+                      </div>
+                    </Form>
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
+
+              <div className="table-ad__wrapper" onContextMenu={handleContextMenu}>
+                <div className="table-ad__wrapperCard">
+                  <MaterialReactTable table={table} />
+                  <Menu
+                    open={contextMenu !== null}
+                    onClose={handleClose}
+                    anchorReference="anchorPosition"
+                    anchorPosition={contextMenu !== null ? { top: contextMenu.mouseY, left: contextMenu.mouseX } : undefined}
+                  >
+                    <MenuItem onClick={handleResizing}>{showRowResizing ? "Disable Resizing" : "Enable Resizing"}</MenuItem>
+                    <MenuItem onClick={handlePaste}>Paste</MenuItem>
+                  </Menu>
+                </div>
+                <FileUpload
+                  open={openFileUpload}
+                  onFileUploadClose={handleFileUploadClose}
+                  onFileUploadSubmit={handleFileUploadSubmit}
+                  acceptedFileTypes=".csv,.json"
+                />
+              </div>
+            </div>
+          </div>
+        </Row>
+      </Container>
+    </div>
+  );
+};
+
+function useGetProfitShares(
+  filterModes: { mode: string; id: string; value: unknown }[],
+  pagination: { pageIndex: number; pageSize: number },
+  setTotalCount: (count: number) => void,
+  sorting: MRT_SortingState
+) {
+  return useQuery<{ results: ProfitShare[]; totalCount: number }>({
+    queryKey: ["profitShares", filterModes, pagination, sorting],
+    queryFn: async () => {
+      let url = `${backendbaseUrl}/paper-app/legal-entity-profit-share/?page=${pagination.pageIndex + 1}&page_size=${pagination.pageSize}`;
+      if (filterModes.length > 0) {
+        url += "&" + filterModes.map((e) =>
+          `fieldName__d39d26f3-8442-44d0-8a7f-66cfcbb2c781__${e.id}=${String(e.value)}__d39d26f3-8442-44d0-8a7f-66cfcbb2c781__${e.mode}`
+        ).join("&");
+      }
+      if (sorting.length > 0) url += `&sortField_${sorting[0].id}=${sorting[0].desc}_sorting`;
+      const response = await axiosInstance.get(url);
+      setTotalCount(response.data.count);
+      return { results: response.data.results as ProfitShare[], totalCount: response.data.count as number };
+    },
+    refetchOnWindowFocus: false,
+  });
+}
+
+function useCreateProfitShare() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (payload: { book: string; profit_share_percentage: number; effective_from: string; effective_to: string | null; active: boolean }) => {
+      const { data } = await axiosInstance.post(`${backendbaseUrl}/paper-app/legal-entity-profit-share/`, payload);
+      return data;
+    },
+    onSettled: () => { queryClient.invalidateQueries({ queryKey: ["profitShares"] }); },
+  });
+}
+
+function useUpdateProfitShare() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (payload: { id: string; book: string; profit_share_percentage: number; effective_from: string; effective_to: string | null; active: boolean }) => {
+      const { data } = await axiosInstance.put(
+        `${backendbaseUrl}/paper-app/legal-entity-profit-share/${payload.id}/`,
+        { book: payload.book, profit_share_percentage: payload.profit_share_percentage, effective_from: payload.effective_from, effective_to: payload.effective_to, active: payload.active }
+      );
+      return data;
+    },
+    onMutate: async (newData) => {
+      await queryClient.cancelQueries({ queryKey: ["profitShares"] });
+      const previous = queryClient.getQueryData(["profitShares"]);
+      queryClient.setQueryData(["profitShares"], (old: any) =>
+        old?.map((item: ProfitShare) => item.id === newData.id ? { ...item, ...newData } : item)
+      );
+      return { previous };
+    },
+    onError: (_err, _newData, context) => { queryClient.setQueryData(["profitShares"], context?.previous); },
+    onSettled: () => { queryClient.invalidateQueries({ queryKey: ["profitShares"] }); },
+  });
+}
+
+function useDeleteProfitShare() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (id: string) => {
+      await axiosInstance.delete(`${backendbaseUrl}/paper-app/legal-entity-profit-share/${id}/`);
+    },
+    onMutate: async (id) => {
+      await queryClient.cancelQueries({ queryKey: ["profitShares"] });
+      const previous = queryClient.getQueryData<ProfitShare[]>(["profitShares"]);
+      queryClient.setQueryData(["profitShares"], (old: ProfitShare[] | undefined) => old?.filter((item) => item.id !== id));
+      return { previous };
+    },
+    onError: (_err, _id, context) => { if (context?.previous) queryClient.setQueryData(["profitShares"], context.previous); },
+    onSettled: () => { queryClient.invalidateQueries({ queryKey: ["profitShares"] }); },
+  });
+}
+
+
+const queryClient = new QueryClient();
+
+export default function ProfitShareByBook() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ProfitShareExample />
+    </QueryClientProvider>
+  );
+}

@@ -1,0 +1,451 @@
+/* ==========================================================
+   ChatWidget.css — TechAngle Global Chat Widget
+   ========================================================== */
+
+/* ── Root container — sits above everything globally ── */
+.cw-root {
+  position: fixed;
+  bottom: 110px;
+  /* sits above the WhatsApp FAB (which is at ~24px) */
+  right: 35px;
+  z-index: 9998;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+}
+
+/* ============================================================
+   PANEL
+============================================================ */
+.cw-panel {
+  width: 330px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, .55),
+    0 0 0 1px rgba(255, 255, 255, .07);
+  background: #0f1020;
+
+  /* hidden by default */
+  opacity: 0;
+  transform: translateY(16px) scale(.97);
+  pointer-events: none;
+  transform-origin: bottom right;
+  transition:
+    opacity .3s cubic-bezier(.4, 0, .2, 1),
+    transform .35s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+.cw-panel--open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+.cw-header {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  padding: 1.1rem 1.2rem;
+  background: linear-gradient(135deg, #1a1b3a 0%, #12132a 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, .07);
+  position: relative;
+}
+
+.cw-header__avatar {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.cw-header__avatar-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: 0 0 16px rgba(99, 102, 241, .45);
+}
+
+/* little green online dot */
+.cw-header__online {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #22c55e;
+  border: 2px solid #0f1020;
+  animation: cw-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes cw-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, .55);
+  }
+
+  50% {
+    box-shadow: 0 0 0 5px rgba(34, 197, 94, 0);
+  }
+}
+
+.cw-header__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.cw-header__name {
+  font-size: .9rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cw-header__status {
+  display: flex;
+  align-items: center;
+  gap: .38rem;
+  font-size: .7rem;
+  color: rgba(255, 255, 255, .42);
+  margin-top: .15rem;
+}
+
+.cw-header__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  flex-shrink: 0;
+}
+
+.cw-close-btn {
+  position: absolute;
+  top: .75rem;
+  right: .75rem;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, .1);
+  background: rgba(255, 255, 255, .06);
+  color: rgba(255, 255, 255, .45);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .78rem;
+  transition: background .2s, color .2s, transform .2s;
+  line-height: 1;
+}
+
+.cw-close-btn:hover {
+  background: rgba(255, 255, 255, .14);
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+/* ── Body ────────────────────────────────────────────────── */
+.cw-body {
+  padding: 1.2rem;
+  background: #0d0e1f;
+  display: flex;
+  flex-direction: column;
+  gap: .9rem;
+}
+
+/* Bot chat bubble */
+.cw-bubble {
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+}
+
+.cw-bubble--bot {}
+
+.cw-bubble__text {
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 4px 14px 14px 14px;
+  padding: .88rem 1rem;
+  font-size: .82rem;
+  color: rgba(255, 255, 255, .72);
+  line-height: 1.72;
+}
+
+.cw-bubble__text strong {
+  color: #a78bfa;
+}
+
+.cw-bubble__time {
+  font-size: .65rem;
+  color: rgba(255, 255, 255, .25);
+  padding-left: .25rem;
+}
+
+/* Quick reply chips */
+.cw-chips {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.cw-chip {
+  display: block;
+  padding: .62rem 1rem;
+  border-radius: 50px;
+  background: rgba(99, 102, 241, .12);
+  border: 1px solid rgba(99, 102, 241, .28);
+  color: #c4b5fd;
+  font-size: .8rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  transition: background .22s, border-color .22s, transform .22s, color .22s;
+}
+
+.cw-chip:hover {
+  background: rgba(99, 102, 241, .26);
+  border-color: rgba(139, 92, 246, .55);
+  color: #e0d7ff;
+  transform: translateX(3px);
+}
+
+/* ── Footer ──────────────────────────────────────────────── */
+.cw-footer {
+  padding: .9rem 1.2rem 1.1rem;
+  background: #0a0b1c;
+  border-top: 1px solid rgba(255, 255, 255, .06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .55rem;
+}
+
+.cw-footer__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  padding: .72rem 1.6rem;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  color: #fff;
+  font-weight: 700;
+  font-size: .86rem;
+  text-decoration: none;
+  box-shadow: 0 4px 18px rgba(37, 211, 102, .35);
+  transition: transform .24s, box-shadow .24s;
+  width: 100%;
+  justify-content: center;
+}
+
+.cw-footer__btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(37, 211, 102, .5);
+}
+
+.cw-footer__brand {
+  font-size: .65rem;
+  color: rgba(255, 255, 255, .22);
+}
+
+/* ============================================================
+   FAB (Floating Action Button)
+============================================================ */
+.cw-fab {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  box-shadow: 0 6px 24px rgba(99, 102, 241, .5);
+  transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s;
+  flex-shrink: 0;
+}
+
+.cw-fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 32px rgba(99, 102, 241, .68);
+}
+
+.cw-fab--open {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+}
+
+/* Icon transition */
+.cw-fab__icon {
+  position: absolute;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .25s, transform .3s;
+}
+
+.cw-fab__icon--chat {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.cw-fab__icon--close {
+  opacity: 0;
+  transform: scale(.5) rotate(-90deg);
+  font-size: 1.1rem;
+}
+
+.cw-fab--open .cw-fab__icon--chat {
+  opacity: 0;
+  transform: scale(.5) rotate(90deg);
+}
+
+.cw-fab--open .cw-fab__icon--close {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+/* Unread badge */
+.cw-fab__badge {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ef4444;
+  color: #fff;
+  font-size: .62rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #07080f;
+  animation: cw-badge-pop .4s cubic-bezier(.34, 1.56, .64, 1);
+}
+/* ── Root container ── */
+/* ── Root container ── */
+.cw-root {
+  position: fixed;
+  bottom: 110px;
+  right: 35px;
+  z-index: 9998;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  pointer-events: none; /* ✅ whole container ignores clicks */
+}
+
+/* Panel — hidden */
+.cw-panel {
+  width: 330px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, .55),
+    0 0 0 1px rgba(255, 255, 255, .07);
+  background: #0f1020;
+  opacity: 0;
+  transform: translateY(16px) scale(.97);
+  pointer-events: none; /* ✅ already had this */
+  transform-origin: bottom right;
+  transition:
+    opacity .3s cubic-bezier(.4, 0, .2, 1),
+    transform .35s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+/* Panel — open */
+.cw-panel--open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all; /* ✅ only clickable when visible */
+}
+
+/* FAB button — always clickable */
+.cw-fab {
+  pointer-events: all; /* ✅ re-enable on the button */
+  position: relative;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  box-shadow: 0 6px 24px rgba(99, 102, 241, .5);
+  transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s;
+  flex-shrink: 0;
+}
+@keyframes cw-badge-pop {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+/* FAB entrance ring animation */
+.cw-fab::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(139, 92, 246, .4);
+  animation: cw-ring 3s ease-in-out infinite;
+}
+
+@keyframes cw-ring {
+  0% {
+    transform: scale(1);
+    opacity: .8;
+  }
+
+  70% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 480px) {
+  .cw-root {
+    bottom: 84px;
+    right: 14px;
+  }
+
+  .cw-panel {
+    width: calc(100vw - 28px);
+    max-width: 340px;
+  }
+
+  .cw-fab {
+    width: 50px;
+    height: 50px;
+  }
+}
