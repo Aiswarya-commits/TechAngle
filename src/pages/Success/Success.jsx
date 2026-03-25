@@ -40,7 +40,7 @@ import Gowri from '../../assets/Gowri.jpeg';
 import Vrindha from '../../assets/Vrindha.jpeg';
 import Sehala from '../../assets/Sehala.jpeg';
 import Arifa from '../../assets/Arifa.jpeg';
-import ahsana from '../../assets/ahsana.jpeg';
+import ahsana from '../../assets/Ahsana.jpeg';
 import DonsavioPauly from '../../assets/DonsavioPauly.jpeg';
 import Sweety from '../../assets/Sweety.jpeg';
 import Prethya from '../../assets/Prethya.jpeg';
