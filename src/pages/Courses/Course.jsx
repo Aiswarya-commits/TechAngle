@@ -256,7 +256,7 @@ const Courses = () => {
       id: 'financial-accounting', title: 'Financial Accounting', category: 'finance',
       description: 'Master financial accounting principles and practices with TechAngle\'s comprehensive course.',
       features: ['Learn fundamental accounting concepts', 'Master financial statement preparation', 'Understand accounting standards and regulations', 'Gain practical experience with real-world scenarios', 'Receive a professional certification upon completion'],
-      image: "/assets/financial.jpg", color: '#f59e0b', slug: 'financial-accounting'
+      image: "/assets/Financial.jpg", color: '#f59e0b', slug: 'financial-accounting'
     },
     {
       id: 'it-hardware-networking', title: 'IT Hardware and Networking', category: 'technology',
@@ -480,7 +480,7 @@ const Courses = () => {
 
             <div className="partner-courses-grid">
               <div className="partner-course-card" style={{ '--partner-color': '#0369a1' }}>
-                <div className="partner-card-image" style={{ backgroundImage: `url(${medicalCodingImage})` }}>
+                <div className="partner-card-image" style={{ backgroundImage: `url(/assets/medical-coding.jpg)` }}>
                   <div className="partner-card-overlay">
                     <span className="partner-card-badge">AAPC Certified</span>
                   </div>

@@ -187,7 +187,7 @@ const Hero = () => {
             </button>
 
             {/* Video */}
-            <video autoPlay muted loop playsInline               className="vm-video"
+            <video autoPlay loop playsInline               className="vm-video"
 >
               <source src="/assets/TechAngleVideo.MP4" type="video/mp4" />
             </video>

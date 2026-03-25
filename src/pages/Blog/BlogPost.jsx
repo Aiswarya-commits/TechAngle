@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './BlogPost.css';
+import { useNavigate } from 'react-router-dom';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,6 +26,7 @@ const CATEGORIES = [
 export default function BlogPost({ post, onBack }) {
   const heroRef = useRef(null);
   const parallaxRef = useRef(null);
+  const navigate = useNavigate()
 
   const tags = RELATED_TAGS[post.id] || post.tags || [];
 
@@ -152,7 +154,7 @@ export default function BlogPost({ post, onBack }) {
               <div className="bp-cta">
                 <h3>Apply to Course</h3>
                 <p>Take the first step toward your future — Register now</p>
-                <button className="bp-cta-btn">Apply Now</button>
+                <button className="bp-cta-btn" onClick={()=> navigate('/contact')}>Apply Now</button>
               </div>
             </>
           ) : (
@@ -175,15 +177,15 @@ export default function BlogPost({ post, onBack }) {
           )}
 
           {/* Social share */}
-          <div className="bp-social">
+          {/* <div className="bp-social">
             <span className="bp-social-label">Social Share:</span>
             {['f', 't', 'in', 'yt'].map(s => (
               <button key={s} className="bp-share-btn">{s}</button>
             ))}
-          </div>
+          </div> */}
 
           {/* Comment */}
-          <div className="bp-comment-box">
+          {/* <div className="bp-comment-box">
             <h3>Leave A Comment</h3>
             <div className="bp-comment-row">
               <input placeholder="Name" />
@@ -191,7 +193,7 @@ export default function BlogPost({ post, onBack }) {
             </div>
             <textarea placeholder="Write a comment..." />
             <button className="bp-submit-btn">Post A Comment</button>
-          </div>
+          </div> */}
         </article>
 
         {/* Sidebar */}

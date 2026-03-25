@@ -125,7 +125,7 @@ export default function Contact() {
           <h1>Let's <span className="gradient-word">Connect</span></h1>
           <p>Transform your career with TechAngle. Reach out and we'll chart your path together.</p>
           <div className="hero-stats">
-            {[['5000+', 'Students'], ['98%', 'Placement Rate'], ['24h', 'Response Time'], ['100+', 'Hiring Partners']].map(([n, l]) => (
+            {[['3500+', 'Students'], ['98%', 'Placement Rate'], ['24h', 'Response Time'], ['100+', 'Hiring Partners']].map(([n, l]) => (
               <div className="stat" key={l}><strong>{n}</strong><span>{l}</span></div>
             ))}
           </div>
