@@ -6,9 +6,9 @@ import './Home.css';
 import Hero from '../../components/Hero/Hero';
 import emailjs from '@emailjs/browser';
 
-import AAPCLogo from '../../assets/AAPC.png';
-import MKCLLogo from '../../assets/MKCL.png';
-import CISILogo from '../../assets/CISI.png';
+import AAPCLogo from '../../../public/assets/AAPC.png';
+import MKCLLogo from '../../../public/assets/MKCL.png';
+import CISILogo from '../../../public/assets/CISI.png';
 
 gsap.registerPlugin(ScrollTrigger);
 

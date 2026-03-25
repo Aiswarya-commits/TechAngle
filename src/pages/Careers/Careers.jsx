@@ -3,11 +3,11 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Careers.css';
 
-import BusinessImg from "../../assets/businessdevelopement.jpg";
-import TeleCallerImg from "../../assets/Telecaller.jpg";
-import CounsilerImg from "../../assets/Counsiler.webp";
-import Finance from "../../assets/finance.webp";
-import Digital from "../../assets/Digital.jpg";
+import BusinessImg from "../../../public/assets/businessdevelopement.jpg";
+import TeleCallerImg from "../../../public/assets/Telecaller.jpg";
+import CounsilerImg from "../../../public/assets/Counsiler.webp";
+import Finance from "../../../public/assets/finance.webp";
+import Digital from "../../../public/assets/Digital.jpg";
 import { useState } from 'react';
 
 gsap.registerPlugin(ScrollTrigger);

@@ -4,10 +4,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import './About.css';
 
-import DarrelImg from '../../assets/Darrel.webp';
-import AjithImg from '../../assets/AjithCEO.jpeg';
-import SureshImg from '../../assets/DirectCEO.jpeg';
-import ArunImg from '../../assets/ArunCEO.jpeg';
+import DarrelImg from '../../../public/assets/Darrel.webp';
+import AjithImg from '../../../public/assets/AjithCEO.jpeg';
+import SureshImg from '../../../public/assets/DirectCEO.jpeg';
+import ArunImg from '../../../public/assets/ArunCEO.jpeg';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 

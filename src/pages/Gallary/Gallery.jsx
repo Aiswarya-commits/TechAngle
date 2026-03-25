@@ -19,20 +19,20 @@ import './Gallery.css';
 
 // ── Import your photos ────────────────────────────────────
 // These are the same assets already used in SuccessStories
-import Pic1 from '../../assets/Pic1.jpeg';
-import Pic2 from '../../assets/Pic2.jpeg';
-import Pic3 from '../../assets/Pic3.webp';
-import Pic4 from '../../assets/Pic4.webp';
-import Pic5 from '../../assets/Pic5.webp';
-import Pic6 from '../../assets/Pic6.webp';
-import Pic7 from '../../assets/Pic7.webp';
-import Pic8 from '../../assets/Pic8.png';
-import Pic9 from '../../assets/Pic9.png';
-import Pic10 from '../../assets/Pic10.png';
-import Pic11 from '../../assets/Pic11.png';
-import Pic12 from '../../assets/Pic12.png';
-import Pic13 from '../../assets/pic-13.jpeg';
-import Pic14 from '../../assets/pic-14.jpeg';
+import Pic1 from '../../../public/assets/Pic1.jpeg';
+import Pic2 from '../../../public/assets/Pic2.jpeg';
+import Pic3 from '../../../public/assets/Pic3.webp';
+import Pic4 from '../../../public/assets/Pic4.webp';
+import Pic5 from '../../../public/assets/Pic5.webp';
+import Pic6 from '../../../public/assets/Pic6.webp';
+import Pic7 from '../../../public/assets/Pic7.webp';
+import Pic8 from '../../../public/assets/Pic8.png';
+import Pic9 from '../../../public/assets/Pic9.png';
+import Pic10 from '../../../public/assets/Pic10.png';
+import Pic11 from '../../../public/assets/Pic11.png';
+import Pic12 from '../../../public/assets/Pic12.png';
+import Pic13 from '../../../public/assets/pic-13.jpeg';
+import Pic14 from '../../../public/assets/pic-14.jpeg';
 import { useNavigate } from 'react-router-dom';
 
 gsap.registerPlugin(ScrollTrigger);
