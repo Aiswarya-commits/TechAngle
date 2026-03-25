@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link } from 'react-router-dom';
 import './Course.css';
 
-import iotImage from '../../../public/assets/Iot.jpg';
+// import iotImage from '../../../public/assets/Iot.jpg';
 import webImage from '../../../public/assets/web.jpg';
 import uiuxImage from '../../../public/assets/UiUx.avif';
 import roboticsImage from '../../../public/assets/robotics.jpg';
@@ -232,7 +232,7 @@ const Courses = () => {
       id: 'cbse-computing', title: 'CBSC Computing Skills Program', category: 'technology',
       description: 'The Internet of Things (IoT) connects people globally and boosts productivity by enabling seamless data exchange and automation.',
       features: ['Gain in-depth knowledge of IoT', 'Hands-on experience with real devices', 'Learn cloud and sensor integration', 'Industry-relevant projects and case studies', 'Enhance career opportunities in IoT'],
-      image: iotImage, color: '#6366f1', slug: 'cbse-computing'
+      image: "/assets/Iot.jpg", color: '#6366f1', slug: 'cbse-computing'
     },
     {
       id: 'mastery-data-platform', title: 'Mastery Data Platform', category: 'technology',
