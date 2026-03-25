@@ -187,14 +187,10 @@ const Hero = () => {
             </button>
 
             {/* Video */}
-            <video
-              ref={videoRef}
-              className="vm-video"
-              src={TechAngleVideo}
-              controls
-              autoPlay
-              playsInline
-            />
+            <video autoPlay muted loop playsInline               className="vm-video"
+>
+              <source src="/assets/TechAngleVideo.MP4" type="video/mp4" />
+            </video>
           </div>
         </div>
       )}
