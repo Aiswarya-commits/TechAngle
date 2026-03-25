@@ -40,7 +40,7 @@ import Gowri from '../../../public/assets/Gowri.jpeg';
 import Vrindha from '../../../public/assets/Vrindha.jpeg';
 import Sehala from '../../../public/assets/Sehala.jpeg';
 import Arifa from '../../../public/assets/Arifa.jpeg';
-import ahsana from '../../../public/assets/ahsana.jpeg';
+import ahsana from '../../../public/assets/Ahsana.jpeg';
 import DonsavioPauly from '../../../public/assets/DonsavioPauly.jpeg';
 import Sweety from '../../../public/assets/Sweety.jpeg';
 import Prethya from '../../../public/assets/Prethya.jpeg';
@@ -112,7 +112,7 @@ const STUDENTS = [
   },
   {
     id: 24,
-    name: 'ahsana',
+    name: 'Ahsana',
     initials: 'AM',
     img: ahsana,
     role: 'HR & Marketing',
