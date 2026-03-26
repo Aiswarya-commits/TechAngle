@@ -305,7 +305,7 @@ const Courses = () => {
 
   // Tab labels
   const tabLabels = [
-    { icon: '🎓', label: 'AAPC Programs' },
+    { icon: '🎓', label: 'MKCL Programs' },
     { icon: '🏥', label: 'IREZ Academy' },
     { icon: '📊', label: 'CISI Programs' },
   ];
