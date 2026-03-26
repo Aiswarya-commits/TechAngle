@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import './CourseDetail.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -886,6 +886,7 @@ const CourseDetail = () => {
   const servicesRef = useRef(null);
   const subCoursesRef = useRef(null);
   const floatingRef = useRef(null);
+  const navigate = useNavigate()
 
   const course = coursesData[slug] || coursesData['cbse-computing'];
 
@@ -1311,7 +1312,7 @@ const CourseDetail = () => {
               <div className="cd-card-accent" style={{ background: course.color }} />
               <h2 className="cd-section-title">{course.title}</h2>
               <p className="cd-desc-text">{course.description}</p>
-              <button className="cd-apply-btn" style={{ background: course.color }} onClick={() => window.location.href = '/contact'}>
+              <button className="cd-apply-btn" style={{ background: course.color }} onClick={() => navigate('/contact')}>
                 Apply Now
                 <span className="cd-btn-arrow">→</span>
               </button>
