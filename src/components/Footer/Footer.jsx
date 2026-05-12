@@ -69,18 +69,18 @@ const Footer = () => {
           </div>
 
           <div className="footer-section">
-            <h4>Popular Courses</h4>
+            <h4>Popular Programs</h4>
             <ul>
-              <li><Link to="/courses" onClick={scrollToTop}>CBSC Computing Skills Program</Link></li>
-              <li><Link to="/courses" onClick={scrollToTop}>Mastery Data Platform</Link></li>
-              <li><Link to="/courses" onClick={scrollToTop}>Digital Designing</Link></li>
-              <li><Link to="/courses" onClick={scrollToTop}>Google Certification Program</Link></li>
-              <li><Link to="/courses" onClick={scrollToTop}>Financial Accounting</Link></li>
-              <li><Link to="/courses" onClick={scrollToTop}>IT Hardware and Networking</Link></li>
-              <li><Link to="/courses" onClick={scrollToTop}>Management Level</Link></li>
+              <li><Link to="/courses" onClick={scrollToTop}>AAPC (AAPC Education Provider In association with Irez Academy)</Link></li>
+              <li><Link to="/courses" onClick={scrollToTop}>MKCL(Maharashtra Knowledge Corporation Limited)</Link></li>
+              <li><Link to="/courses" onClick={scrollToTop}>CISI(Chartered Institute for Securities & Investment)</Link></li>
+              <li><Link to="/courses" onClick={scrollToTop}>CGIB(Chartered Global Investment Banker)</Link></li>
+              <li><Link to="/courses" onClick={scrollToTop}>BIM(Building information System)</Link></li>
+              <li><Link to="/courses" onClick={scrollToTop}>CAFS(Certified Anti-Financial Crime Specialist)</Link></li>
+              {/* <li><Link to="/courses" onClick={scrollToTop}>Management Level</Link></li>
               <li><Link to="/courses" onClick={scrollToTop}>Software Development</Link></li>
               <li><Link to="/courses" onClick={scrollToTop}>Soft Skill</Link></li>
-              <li><Link to="/courses" onClick={scrollToTop}>AI And Other Programs</Link></li>
+              <li><Link to="/courses" onClick={scrollToTop}>AI And Other Programs</Link></li> */}
             </ul>
           </div>
 

@@ -5,6 +5,12 @@ import { Link } from 'react-router-dom';
 import './Course.css';
 import BIM from "../../../public/assets/Bim.png"
 import CAFS from "../../../public/assets/CAFS.jpg"
+import MKCKLOGO from "../../../public/assets/MKCL.png"
+import AAPCLOGO from "../../../public/assets/AAPC.png"
+import CISILOGO from "../../../public/assets/CISI.png"
+import CGIBLOGO from "../../../public/assets/CGBIImage.png"
+import BIMLOGO from "../../../public/assets/BIMLOGO.png"
+import CAFSLOGO from "../../../public/assets/CAFSLOGO.png"
 
 // import iotImage from '../../../public/assets/Iot.jpg';
 // import webImage from '../../../public/assets/web.jpg';
@@ -307,12 +313,12 @@ const Courses = () => {
 
   // Tab labels
   const tabLabels = [
-    { icon: '🎓', label: 'MKCL Programs' },
-    { icon: '🏥', label: 'IREZ Academy' },
-    { icon: '📊', label: 'CISI Programs' },
-    { icon: '🎯', label: 'CGIB Programs' },
-    { icon: '🥇', label: 'BIM Programs' },
-    { icon: '🏆', label: 'CAFS Programs' },
+    { icon: <img src={MKCKLOGO} alt="MKCL" style={{ width: '40px', height: '150px', objectFit: 'contain' }} />,    color: '#2563eb', label: 'MKCL Programs' },
+    { icon: <img src={AAPCLOGO} alt="MKCL" style={{ width: '40px', height: '150px', objectFit: 'contain' }} />,    color: '#2563eb', label: 'IREZ Academy' },
+    { icon: <img src={CISILOGO} alt="MKCL" style={{ width: '40px', height: '150px', objectFit: 'contain' }} />,    color: '#2563eb', label: 'CISI Programs' },
+    { icon: <img src={CGIBLOGO} alt="MKCL" style={{ width: '40px', height: '150px', objectFit: 'contain' }} />,    color: '#2563eb', label: 'CGIB Programs' },
+    { icon: <img src={BIMLOGO} alt="MKCL" style={{ width: '40px', height: '150px', objectFit: 'contain' }} />,    color: '#2563eb', label: 'BIM Programs' },
+    { icon: <img src={CAFSLOGO} alt="MKCL" style={{ width: '40px', height: '150px', objectFit: 'contain' }} />,    color: '#2563eb', label: 'CAFS Programs' },
   ];
 
   return (

@@ -757,14 +757,14 @@ const Home = () => {
               <div className="badge-circle">
                 <img
                   src={BIM}
-                  alt="CISI"
+                  alt="BIM"
                   style={{ width: '80%', objectFit: 'contain' }}
                   onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
                 />
                 <span className="badge-text" style={{ display: 'none' }}><img src={CGBI} style={{height:"100px"}}></img></span>
               </div>
               </a>
-              <p>Chartered Global Investment Banker</p>
+              <p>Building information System</p>
             </div>
             <div className="accreditation-badge">
               <a
@@ -776,14 +776,14 @@ const Home = () => {
               <div className="badge-circle">
                 <img
                   src={CAFS}
-                  alt="CISI"
+                  alt="CAFS"
                   style={{ width: '100%', objectFit: 'contain' ,color : 'white',}}
                   onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
                 />
                 <span className="badge-text" style={{ display: 'none' }}><img src={CGBI} style={{height:"100px"}}></img></span>
               </div>
               </a>
-              <p>Chartered Global Investment Banker</p>
+              <p>Certified Anti-Financial Crime Specialist</p>
             </div>
           </div>
         </div>
