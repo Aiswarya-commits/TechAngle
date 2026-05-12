@@ -89,7 +89,7 @@ const Footer = () => {
             <ul className="contact-info">
               <li>
                 <span className="icon">📍</span>
-                <span>Infopark, Kakkanad<br />Kochi, Kerala, India</span>
+                <span>Infopark, Kakkanad<br />Kochi | Chennai, India </span>
               </li>
               <li>
                 <span className="icon">📧</span>

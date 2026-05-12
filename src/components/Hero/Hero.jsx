@@ -154,8 +154,9 @@ const Hero = () => {
           <span>With TechAngle</span>
         </h1>
         <p ref={subtitleRef}>
-          Leading training institute in Kochi offering industry-relevant courses with
-          career support and placement assistance
+          Empowering Individuals with industry-relevant training
+          career support, and placement assistance to build a successful future <br /> <span >
+          Kochi | Chennai</span>
         </p>
         <div className="hero-cta" ref={ctaRef}>
           <Link to="/courses">

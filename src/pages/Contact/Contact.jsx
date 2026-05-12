@@ -162,7 +162,7 @@ export default function Contact() {
                 <div className="card-accent" />
                 <div className="info-icon-wrap">📍</div>
                 <h3>Visit Us</h3>
-                <p>TechAngle Training Institute<br />Infopark Campus, Kakkanad<br />Kochi, Kerala – 682042</p>
+                <p>TechAngle Training Institute<br />Infopark Campus, Kakkanad<br />Kochi, Kerala – 682042 <br /> Chennai</p> 
                 <a href="https://www.google.com/maps/place/TechAngle/@10.0142114,76.345034,15z/data=!3m2!4b1!5s0x3b080c8576a7743d:0x85e50fccded2b4d7!4m6!3m5!1s0x3b080d5f9e85acf7:0xdf2fa053c826a859!8m2!3d10.0141908!4d76.3634881!16s%2Fg%2F11y4xn_rxn?entry=ttu&g_ep=EgoyMDI2MDIxMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noreferrer" className="card-link">Open in Maps →</a>
               </div>
 
