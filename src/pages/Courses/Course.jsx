@@ -3,6 +3,8 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link } from 'react-router-dom';
 import './Course.css';
+import BIM from "../../../public/assets/Bim.png"
+import CAFS from "../../../public/assets/CAFS.jpg"
 
 // import iotImage from '../../../public/assets/Iot.jpg';
 // import webImage from '../../../public/assets/web.jpg';
@@ -308,6 +310,9 @@ const Courses = () => {
     { icon: '🎓', label: 'MKCL Programs' },
     { icon: '🏥', label: 'IREZ Academy' },
     { icon: '📊', label: 'CISI Programs' },
+    { icon: '🎯', label: 'CGIB Programs' },
+    { icon: '🥇', label: 'BIM Programs' },
+    { icon: '🏆', label: 'CAFS Programs' },
   ];
 
   return (
@@ -588,6 +593,429 @@ const Courses = () => {
           </div>
         </section>
       </div>
+      
+{/* ══════════════════════════════════════════════════════
+    TAB PANEL 3 — CGIB Programs
+    ══════════════════════════════════════════════════════ */}
+<div
+  className="section-tab-panel"
+  ref={el => tabPanelRefs.current[3] = el}
+>
+  <section className="partner-courses-section partner-cgib">
+    {/* Floating decorative orbs */}
+    <div className="cgib-orb cgib-orb-1" aria-hidden="true" />
+    <div className="cgib-orb cgib-orb-2" aria-hidden="true" />
+    <div className="cgib-orb cgib-orb-3" aria-hidden="true" />
+ 
+    <div className="container">
+      {/* ── Section Header ── */}
+      <div className="partner-section-header">
+        <div className="partner-badge partner-badge-cgib">
+          <span className="partner-badge-icon">🏦</span>
+          In Association With CGIB — Investment Banking Foundation
+        </div>
+        <h2 className="partner-section-title">
+          Courses Offered By TechAngle
+          <span className="partner-title-highlight partner-title-cgib">
+            {' '}In Association With CGIB
+          </span>
+        </h2>
+        <p className="partner-section-subtitle">
+          India's first chartered-level qualification in global investment banking — recognised by
+          Goldman Sachs, JPMorgan, HSBC &amp; 20+ global financial institutions.
+        </p>
+      </div>
+ 
+      {/* ── Stats strip ── */}
+      {/* <div className="cgib-stats-strip">
+        {[
+          { num: '12k+', label: 'Students Placed' },
+          { num: '85%',  label: 'Pass Rate' },
+          { num: '5.0',  label: 'Google Reviews' },
+          { num: '16+',  label: 'Programs Offered' },
+        ].map((s, i) => (
+          <div className="cgib-stat-item" key={i}>
+            <span className="cgib-stat-num">{s.num}</span>
+            <span className="cgib-stat-label">{s.label}</span>
+          </div>
+        ))}
+      </div> */}
+ 
+      {/* ── Main grid ── */}
+      <div className="cgib-main-grid">
+ 
+        {/* LEFT — info sidebar */}
+        <div className="partner-info-card partner-info-cgib">
+          <div className="cgib-logo-block">
+            <span className="cgib-logo-icon">🏛️</span>
+            <strong>CGIB™</strong>
+          </div>
+          <h4>Why CGIB?</h4>
+          <ul className="partner-info-list">
+            {[
+              "India's first chartered investment banking qualification",
+              "Recognized by Goldman Sachs, JPMorgan, HSBC & more",
+              "3-level program: Foundational → Applied → Strategic",
+              "CA / CFA / CMA holders get Level I exemption",
+              "Minimum 12-month work experience pathway",
+              "Board of advisors from BSE, IIM & top banks",
+            ].map((item, i) => (
+              <li key={i}>
+                <span className="pil-dot pil-dot-cgib" />
+                {item}
+              </li>
+            ))}
+          </ul>
+          <div className="partner-info-stat partner-info-stat-cgib">
+            <span className="pis-num">20+</span>
+            <span className="pis-label">Global Banks Recognise CGIB</span>
+          </div>
+        </div>
+ 
+        {/* RIGHT — program levels + cards */}
+        <div className="cgib-right-col">
+ 
+          {/* Level cards */}
+          <div className="cgib-levels-row">
+            {[
+              {
+                level: 'Level I',
+                tag: 'FOUNDATIONAL',
+                icon: '📘',
+                desc: 'Core concepts in financial markets, accounting, and the investment banking ecosystem.',
+                color: '#1e6fa8',
+              },
+              {
+                level: 'Level II',
+                tag: 'APPLIED',
+                icon: '📗',
+                desc: 'M&A modelling, debt/equity financing, risk management, and ESG integration.',
+                color: '#1a5c8e',
+              },
+              {
+                level: 'Level III',
+                tag: 'STRATEGIC',
+                icon: '📙',
+                desc: 'Leadership in global deals, private equity, and strategic advisory with real-world case studies.',
+                color: '#153f63',
+              },
+            ].map((lvl, i) => (
+              <div className="cgib-level-card" key={i} style={{ '--lvl-color': lvl.color }}>
+                <div className="cgib-level-top">
+                  <span className="cgib-level-icon">{lvl.icon}</span>
+                  <div>
+                    <span className="cgib-level-tag">{lvl.tag}</span>
+                    <strong className="cgib-level-title">{lvl.level}</strong>
+                  </div>
+                </div>
+                <p className="cgib-level-desc">{lvl.desc}</p>
+              </div>
+            ))}
+          </div>
+ 
+          {/* Career outcomes */}
+          <div className="cgib-careers-card">
+            <div className="cgib-careers-header">
+              <span className="cgib-careers-icon">💼</span>
+              <strong>Career Outcomes</strong>
+            </div>
+            <div className="cgib-careers-grid">
+              {[
+                'Merchant Banker', 'IPO Consultant', 'Underwriter',
+                'M&A Specialist', 'Valuer Specialist', 'Credit Analyst',
+                'Financial Analyst', 'Risk Analyst', 'Insolvency Consultant',
+                'Investment Consultant',
+              ].map((c, i) => (
+                <span className="cgib-career-chip" key={i}>{c}</span>
+              ))}
+            </div>
+          </div>
+ 
+          {/* Placement banks strip */}
+          <div className="cgib-banks-card">
+            <p className="cgib-banks-label">Placements in leading companies</p>
+            <div className="cgib-banks-row">
+              {['Goldman Sachs', 'JPMorgan Chase', 'Morgan Stanley', 'HSBC', 'Deutsche Bank', 'Barclays', 'UBS', 'Nomura', 'BNP Paribas', 'ICICI Bank'].map((b, i) => (
+                <span className="cgib-bank-pill" key={i}>{b}</span>
+              ))}
+            </div>
+          </div>
+ 
+          <Link to="/courses/cgib-programs">
+            <button className="partner-explore-btn partner-btn-cgib">
+              Explore CGIB Programs →
+            </button>
+          </Link>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div
+  className="section-tab-panel"
+  ref={el => tabPanelRefs.current[4] = el}
+>
+  <section className="partner-courses-section partner-bim">
+    <div className="bim-orb bim-orb-1" aria-hidden="true" />
+    <div className="bim-orb bim-orb-2" aria-hidden="true" />
+ 
+    <div className="container">
+      {/* ── Section Header ── */}
+      <div className="partner-section-header">
+        <div className="partner-badge partner-badge-bim">
+          <span className="partner-badge-icon">🥇</span>
+          BIM &amp; Architecture Software — Learn At One
+        </div>
+        <h2 className="partner-section-title">
+          Building Information Modelling
+          <span className="partner-title-highlight partner-title-bim">
+            {' '}Programs by Learn At One
+          </span>
+        </h2>
+        <p className="partner-section-subtitle">
+          Autodesk Licensed • Industry Certificate • 100% Online • Placement Support —
+          the complete career transformation package for architecture and civil graduates.
+        </p>
+      </div>
+ 
+      {/* ── Main grid (same pattern as IREZ) ── */}
+      <div className="partner-courses-grid">
+ 
+        {/* LEFT — Main course card */}
+        <div className="partner-course-card" style={{ '--partner-color': '#d4af37' }}>
+          <div
+            className="partner-card-image"
+            style={{ backgroundImage: `url(${BIM})` }}
+          >
+            <div className="partner-card-overlay">
+              <span className="partner-card-badge bim-card-badge-top">Autodesk Licensed</span>
+            </div>
+          </div>
+          <div className="partner-card-content">
+            <div className="partner-card-logo partner-logo-bim">Learn At One × Autodesk</div>
+            <h3>BIM &amp; Architecture Software Programs</h3>
+            <p>
+              From BIM Complete (6 months) to individual software courses (2 months) —
+              Revit, AutoCAD, Navisworks, SketchUp, Lumion, STAAD.Pro, Primavera and more.
+              Real projects. Genuine Autodesk licence included. Job-oriented from Day 1.
+            </p>
+            <div className="partner-card-tags">
+              <span>Revit Architecture</span>
+              <span>AutoCAD</span>
+              <span>Navisworks</span>
+              <span>BIM Execution Plan</span>
+              <span>Placement Support</span>
+            </div>
+            <Link to="/courses/bim-programs">
+              <button className="partner-explore-btn partner-btn-bim">
+                Explore BIM Programs →
+              </button>
+            </Link>
+          </div>
+        </div>
+ 
+        {/* RIGHT — Info sidebar */}
+        <div className="partner-info-card partner-info-bim">
+          <h4>Why Learn At One BIM?</h4>
+          <ul className="partner-info-list">
+            <li><span className="pil-dot pil-dot-bim" />Genuine Autodesk Licence Included FREE</li>
+            <li><span className="pil-dot pil-dot-bim" />Industry-recognised certificate</li>
+            <li><span className="pil-dot pil-dot-bim" />Mock interviews by HR professionals</li>
+            <li><span className="pil-dot pil-dot-bim" />Portfolio reviewed &amp; refined</li>
+            <li><span className="pil-dot pil-dot-bim" />LinkedIn profile makeover</li>
+            <li><span className="pil-dot pil-dot-bim" />60 students — personal attention</li>
+            <li><span className="pil-dot pil-dot-bim" />Alumni in India, Dubai &amp; Singapore</li>
+          </ul>
+ 
+          {/* Course options quick view */}
+          <div className="bim-quick-courses">
+            {[
+              { label: 'BIM Complete', price: '₹60,000', duration: '6 Months' },
+              { label: 'Revit Advanced', price: '₹30,000', duration: '2 Months' },
+              { label: 'Architecture Suite', price: '₹15K–₹25K', duration: '2 Months' },
+              { label: 'Civil Program', price: '₹20,000', duration: '2 Months' },
+            ].map((c, i) => (
+              <div className="bim-quick-item" key={i}>
+                <span className="bim-quick-label">{c.label}</span>
+                <span className="bim-quick-meta">{c.duration} · <strong>{c.price}</strong></span>
+              </div>
+            ))}
+          </div>
+ 
+          <div className="partner-info-stat partner-info-stat-bim">
+            <span className="pis-num" style={{ color: '#f5d060' }}>₹10K</span>
+            <span className="pis-label">Early Bird Offer — Limited Seats</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{/* ══════════════════════════════════════════════════════
+    TAB PANEL 5 — CAFS Programs
+    ══════════════════════════════════════════════════════ */}
+<div
+  className="section-tab-panel"
+  ref={el => tabPanelRefs.current[5] = el}
+>
+  <section className="partner-courses-section partner-cafs">
+    <div className="cafs-orb cafs-orb-1" aria-hidden="true" />
+    <div className="cafs-orb cafs-orb-2" aria-hidden="true" />
+
+    <div className="container">
+      {/* ── Section Header ── */}
+      <div className="partner-section-header">
+        <div className="partner-badge partner-badge-cafs">
+          <span className="partner-badge-icon">🛡️</span>
+          In Association With ReTRRAC® — UK Anti-Financial Crime Specialists
+        </div>
+        <h2 className="partner-section-title">
+          Certified Anti-Financial Crime Specialist
+          <span className="partner-title-highlight partner-title-cafs">
+            {' '}CAFS™ by ReTRRAC®
+          </span>
+        </h2>
+        <p className="partner-section-subtitle">
+          CPD Accredited • Globally Recognised • 6 Weeks • Google Reviews 4.9/5 —
+          the fastest route into AML compliance, KYC, and financial crime careers worldwide.
+        </p>
+      </div>
+
+      {/* ── Main grid ── */}
+      <div className="partner-courses-grid">
+
+        {/* LEFT — Main course card */}
+        <div className="partner-course-card" style={{  }}>
+          <div
+            className="partner-card-image"
+            style={{
+              backgroundImage: `url(${CAFS})`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '5rem',
+              position: 'relative'
+            }}
+          >
+            
+            <div className="partner-card-overlay">
+              <span className="partner-card-badge">CPD Certified</span>
+            </div>
+          </div>
+          <div className="partner-card-content">
+            <div className="partner-card-logo" style={{ background: 'rgba(26,58,107,0.15)', color: '#4a90d9', border: '1px solid rgba(26,58,107,0.3)' }}>
+              ReTRRAC® × CAFS™
+            </div>
+            <h3>CAFS™ — Certified Anti-Financial Crime Specialist</h3>
+            <p>
+              6-week CPD-accredited programme covering AML, KYC, CTF, Sanctions, UBO, PEP, and global
+              regulatory frameworks across EU, UK, MENA, AMER, and APAC. Includes interview coaching,
+              mock interviews, resume preparation, and access to the ReTRRAC® job network.
+            </p>
+            <div className="partner-card-tags">
+              <span>AML Compliance</span>
+              <span>KYC & CDD</span>
+              <span>Sanctions Screening</span>
+              <span>FATF Regulations</span>
+              <span>CPD Accredited</span>
+            </div>
+            <Link to="/courses/cafs-programs">
+              <button className="partner-explore-btn" style={{ background: 'linear-gradient(135deg, #1a3a6b, #2563eb)', color: '#fff', boxShadow: '0 4px 20px rgba(26,58,107,0.35)', marginTop: '8px' }}>
+                Explore CAFS™ Program →
+              </button>
+            </Link>
+          </div>
+        </div>
+
+        {/* RIGHT — Info sidebar */}
+        <div className="partner-info-card" style={{ borderTop: '3px solid #1a3a6b' }}>
+          <h4>Why CAFS™ with ReTRRAC®?</h4>
+          <ul className="partner-info-list">
+            {[
+              'CPD Certified — globally recognised qualification',
+              'Google Reviews: 4.9/5 stars',
+              'ReTRRAC® — 8+ years UK AML consulting experience',
+              'Faculty: 30+ years from investment banks & Fortune 500',
+              'Multi-jurisdictional: EU, UK, MENA, AMER, APAC',
+              'Interview coaching & mock interviews included',
+              'Resume preparation to industry standards',
+              'Access to ReTRRAC™ live job opportunities network',
+              'FSB Member & Investors in People accredited',
+            ].map((item, i) => (
+              <li key={i}>
+                <span className="pil-dot" style={{ background: '#1a3a6b', boxShadow: '0 0 6px rgba(26,58,107,0.5)' }} />
+                {item}
+              </li>
+            ))}
+          </ul>
+
+          {/* Career paths quick view */}
+          <div style={{ marginTop: '20px', borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: '16px' }}>
+            <p style={{ fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#475569', margin: '0 0 10px' }}>
+              Career Paths
+            </p>
+            {[
+              'AML Compliance Officer',
+              'KYC & Due Diligence Analyst',
+              'Sanctions Screening Specialist',
+              'Fraud Investigator',
+              'Financial Crime Consultant',
+            ].map((role, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '7px' }}>
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#4a90d9', flexShrink: 0 }} />
+                <span style={{ fontSize: '0.83rem', color: '#94a3b8' }}>{role}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="partner-info-stat" style={{ background: 'rgba(26,58,107,0.1)', borderColor: 'rgba(26,58,107,0.22)', marginTop: '16px' }}>
+            <span className="pis-num" style={{ color: '#4a90d9' }}>6</span>
+            <span className="pis-label">Weeks — Complete Career Transformation</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Industries hiring CAFS strip ── */}
+      <div style={{
+        marginTop: '32px',
+        background: 'rgba(255,255,255,0.03)',
+        border: '1px solid rgba(255,255,255,0.07)',
+        borderRadius: '14px',
+        padding: '20px 24px'
+      }}>
+        <p style={{ fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#475569', margin: '0 0 14px' }}>
+          Industries Hiring CAFS™ Certified Professionals
+        </p>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+          {[
+            'Banking & Financial Institutions',
+            'Fintech & Payment Services',
+            'Cryptocurrency & Digital Banks',
+            'Big 4 Consulting (Deloitte, PwC, EY, KPMG)',
+            'FCA & Regulatory Bodies',
+            'FATF & UN',
+            'HM Treasury',
+            'Law Enforcement & Intelligence',
+            'Insurance & Wealth Management',
+            'Law Firms & Legal Sector',
+          ].map((ind, i) => (
+            <span key={i} style={{
+              padding: '5px 13px',
+              background: 'rgba(26,58,107,0.12)',
+              border: '1px solid rgba(26,58,107,0.25)',
+              borderRadius: '20px',
+              fontSize: '0.78rem',
+              color: '#7dd3fc',
+              fontWeight: 500
+            }}>{ind}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
 
       {/* ── All sections below remain completely unchanged ── */}
 
@@ -645,6 +1073,7 @@ const Courses = () => {
         </div>
       </section>
     </div>
+    
   );
 };
 

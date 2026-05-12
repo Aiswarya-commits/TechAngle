@@ -210,7 +210,7 @@
 }
 
 .stat-card {
-  background: var(--card-bg);
+  background: #ffffff;
   padding: 2.5rem;
   border-radius: 20px;
   text-align: center;
@@ -235,7 +235,7 @@
 }
 
 .stat-card p {
-  color: var(--text-secondary);
+  color: #555555;
   font-size: 1rem;
 }
 
@@ -295,7 +295,7 @@
 }
 
 .home-course-card {
-  background: var(--card-bg);
+  background: #ffffff;
   padding: 2.5rem;
   border-radius: 20px;
   backdrop-filter: blur(10px);
@@ -364,11 +364,11 @@
 .home-course-card h3 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: var(--text-primary);
+  color: #111111;
 }
 
 .home-course-card p {
-  color: var(--text-secondary);
+  color: #555555;
   margin-bottom: 2rem;
   line-height: 1.7;
 }
@@ -376,7 +376,7 @@
 .learn-more-btn {
   background: transparent;
   border: 2px solid var(--card-color);
-  color: var(--text-primary);
+  color: #111111;
   padding: 0.8rem 2rem;
   border-radius: 50px;
   font-weight: 600;

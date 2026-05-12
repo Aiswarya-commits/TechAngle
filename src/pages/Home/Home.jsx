@@ -9,6 +9,9 @@ import emailjs from '@emailjs/browser';
 import AAPCLogo from '../../../public/assets/AAPC.png';
 import MKCLLogo from '../../../public/assets/MKCL.png';
 import CISILogo from '../../../public/assets/CISI.png';
+import CGBI from '../../../public/assets/CGBIImage.png';
+import BIM from '../../../public/assets/BIMLOGO.png';
+import CAFS from '../../../public/assets/CAFSLOGO.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -674,12 +677,11 @@ const Home = () => {
         <div className="container">
           <div className="section-header">
             <h2>TechAngle Accreditations</h2>
-            <p>In association with <strong>Irez Academy</strong></p>
           </div>
           <div className="accreditations-grid">
             <div className="accreditation-badge">
               <a
-                href="https://codingclarified.com/what-it-means-to-be-an-aapc-education-provider/"
+                // href="https://codingclarified.com/what-it-means-to-be-an-aapc-education-provider/"
                 target="_blank"
                 rel="noreferrer"
                 style={{ textDecoration: 'none', cursor: 'pointer' }}
@@ -690,10 +692,12 @@ const Home = () => {
                 </div>
               </a>
               <p>AAPC Education Provider</p>
+                          <p>In association with <strong>Irez Academy</strong></p>
+
             </div>
             <div className="accreditation-badge">
               <a
-                href="https://www.mkcl.org/"
+                // href="https://www.mkcl.org/"
                 target="_blank"
                 rel="noreferrer"
                 style={{ textDecoration: 'none', cursor: 'pointer' }}
@@ -707,7 +711,7 @@ const Home = () => {
             </div>
             <div className="accreditation-badge">
               <a
-                href="https://www.cisi.org/cisiweb2"
+                // href="https://www.cisi.org/cisiweb2"
                 target="_blank"
                 rel="noreferrer"
                 style={{ textDecoration: 'none', cursor: 'pointer' }}
@@ -723,6 +727,63 @@ const Home = () => {
               </div>
               </a>
               <p>Chartered Institute for Securities & Investment</p>
+            </div>
+            <div className="accreditation-badge">
+              <a
+                // href="https://www.cisi.org/cisiweb2"
+                target="_blank"
+                rel="noreferrer"
+                style={{ textDecoration: 'none', cursor: 'pointer' }}
+              >
+              <div className="badge-circle">
+                <img
+                  src="https://www.cisi.org/cisiweb2/images/cisi-logo.png"
+                  alt="CISI"
+                  style={{ width: '80%', objectFit: 'contain' }}
+                  onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
+                />
+                <span className="badge-text" style={{ display: 'none' }}><img src={CGBI} style={{height:"100px"}}></img></span>
+              </div>
+              </a>
+              <p>Chartered Global Investment Banker</p>
+            </div>
+            <div className="accreditation-badge">
+              <a
+                // href="https://www.cisi.org/cisiweb2"
+                target="_blank"
+                rel="noreferrer"
+                style={{ textDecoration: 'none', cursor: 'pointer' }}
+              >
+              <div className="badge-circle">
+                <img
+                  src={BIM}
+                  alt="CISI"
+                  style={{ width: '80%', objectFit: 'contain' }}
+                  onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
+                />
+                <span className="badge-text" style={{ display: 'none' }}><img src={CGBI} style={{height:"100px"}}></img></span>
+              </div>
+              </a>
+              <p>Chartered Global Investment Banker</p>
+            </div>
+            <div className="accreditation-badge">
+              <a
+                // href="https://www.cisi.org/cisiweb2"
+                target="_blank"
+                rel="noreferrer"
+                style={{ textDecoration: 'none', cursor: 'pointer' }}
+              >
+              <div className="badge-circle">
+                <img
+                  src={CAFS}
+                  alt="CISI"
+                  style={{ width: '100%', objectFit: 'contain' ,color : 'white',}}
+                  onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
+                />
+                <span className="badge-text" style={{ display: 'none' }}><img src={CGBI} style={{height:"100px"}}></img></span>
+              </div>
+              </a>
+              <p>Chartered Global Investment Banker</p>
             </div>
           </div>
         </div>

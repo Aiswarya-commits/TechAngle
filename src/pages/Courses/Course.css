@@ -2182,8 +2182,8 @@ body {
   border: none;
   cursor: pointer;
   color: #64748b;
-  font-size: 0.92rem;
-  font-weight: 600;
+  font-size: 1.05rem;
+  font-weight: 700;
   letter-spacing: 0.01em;
   transition: color 0.25s ease;
   white-space: nowrap;
@@ -2250,6 +2250,300 @@ body {
   padding-top: 60px;
 }
 
+.partner-cgib {
+  background: linear-gradient(160deg, #070d1a 0%, #0b1628 55%, #071020 100%);
+  position: relative;
+  overflow: hidden;
+}
+ 
+/* Floating orbs */
+.cgib-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+}
+.cgib-orb-1 {
+  width: 500px; height: 500px;
+  top: -120px; right: -80px;
+  background: radial-gradient(circle, rgba(30, 111, 168, 0.18) 0%, transparent 70%);
+}
+.cgib-orb-2 {
+  width: 320px; height: 320px;
+  bottom: -80px; left: -60px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.10) 0%, transparent 70%);
+}
+.cgib-orb-3 {
+  width: 200px; height: 200px;
+  top: 40%; left: 45%;
+  background: radial-gradient(circle, rgba(30, 111, 168, 0.08) 0%, transparent 70%);
+}
+ 
+/* Badge */
+.partner-badge-cgib {
+  background: rgba(30, 111, 168, 0.12);
+  border: 1px solid rgba(30, 111, 168, 0.35);
+  color: #60b4f0;
+}
+ 
+/* Title highlight */
+.partner-title-cgib {
+  background: linear-gradient(135deg, #1e6fa8, #4db8ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+}
+ 
+/* ── Stats strip ── */
+.cgib-stats-strip {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  padding: 20px 28px;
+  margin-bottom: 44px;
+  flex-wrap: wrap;
+}
+.cgib-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 32px;
+  border-right: 1px solid rgba(255,255,255,0.07);
+}
+.cgib-stat-item:last-child { border-right: none; }
+.cgib-stat-num {
+  font-size: 1.7rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #1e6fa8, #4db8ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.15;
+}
+.cgib-stat-label {
+  font-size: 0.72rem;
+  color: #64748b;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 4px;
+  font-weight: 500;
+}
+ 
+/* ── Main grid ── */
+.cgib-main-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+ 
+/* Info sidebar CGIB-specific overrides */
+.partner-info-cgib {
+  border-top: 3px solid #1e6fa8;
+  position: sticky;
+  top: 100px;
+}
+ 
+.cgib-logo-block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.cgib-logo-icon { font-size: 2rem; }
+.cgib-logo-block strong {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #4db8ff;
+  letter-spacing: 0.04em;
+}
+ 
+.pil-dot-cgib {
+  background: #1e6fa8;
+  box-shadow: 0 0 6px rgba(30,111,168,0.5);
+}
+ 
+.partner-info-stat-cgib {
+  background: rgba(30, 111, 168, 0.1);
+  border-color: rgba(30, 111, 168, 0.22);
+}
+.partner-info-stat-cgib .pis-num { color: #4db8ff; }
+ 
+/* ── Right column ── */
+.cgib-right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+ 
+/* Level cards row */
+.cgib-levels-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+ 
+.cgib-level-card {
+  background: #0f1c2e;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-top: 3px solid var(--lvl-color, #1e6fa8);
+  border-radius: 14px;
+  padding: 18px 16px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: default;
+}
+.cgib-level-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.35);
+}
+.cgib-level-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.cgib-level-icon { font-size: 1.6rem; flex-shrink: 0; }
+.cgib-level-tag {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #4db8ff;
+  margin-bottom: 2px;
+}
+.cgib-level-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+.cgib-level-desc {
+  font-size: 0.82rem;
+  color: #64748b;
+  line-height: 1.55;
+  margin: 0;
+}
+ 
+/* Career outcomes card */
+.cgib-careers-card {
+  background: #0f1c2e;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  padding: 20px 20px 18px;
+}
+.cgib-careers-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.cgib-careers-icon { font-size: 1.2rem; }
+.cgib-careers-header strong {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+.cgib-careers-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cgib-career-chip {
+  display: inline-block;
+  padding: 5px 13px;
+  background: rgba(30,111,168,0.1);
+  border: 1px solid rgba(30,111,168,0.22);
+  border-radius: 20px;
+  font-size: 0.78rem;
+  color: #7dd3fc;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+.cgib-career-chip:hover {
+  background: rgba(30,111,168,0.22);
+  color: #e0f2fe;
+}
+ 
+/* Banks strip */
+.cgib-banks-card {
+  background: #0f1c2e;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  padding: 16px 20px;
+}
+.cgib-banks-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #475569;
+  margin: 0 0 12px;
+}
+.cgib-banks-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cgib-bank-pill {
+  padding: 4px 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+.cgib-bank-pill:hover {
+  background: rgba(30,111,168,0.12);
+  border-color: rgba(30,111,168,0.28);
+  color: #7dd3fc;
+}
+ 
+/* CTA button */
+.partner-btn-cgib {
+  background: linear-gradient(135deg, #1a4f7a, #1e6fa8);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(30, 111, 168, 0.35);
+  margin-top: 4px;
+}
+.partner-btn-cgib:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(30, 111, 168, 0.5);
+}
+ 
+/* ── Responsive ── */
+@media (max-width: 1000px) {
+  .cgib-main-grid {
+    grid-template-columns: 1fr;
+  }
+  .partner-info-cgib {
+    position: relative;
+    top: 0;
+  }
+  .cgib-levels-row {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .cgib-stats-strip {
+    gap: 8px;
+    padding: 14px 12px;
+  }
+  .cgib-stat-item {
+    padding: 0 14px;
+    border-right: none;
+    min-width: 80px;
+  }
+  .cgib-levels-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ── Responsive ─────────────────────────────────────────── */
 @media (max-width: 640px) {
   .section-tabs-nav {
@@ -2284,4 +2578,41 @@ body {
   .section-tab-btn {
     padding: 10px 8px 14px;
   }
+}
+/* ── CAFS Partner Section ── */
+.partner-cafs {
+  background: linear-gradient(160deg, #060d1a 0%, #0a1628 55%, #060e1c 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.cafs-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+}
+.cafs-orb-1 {
+  width: 480px; height: 480px;
+  top: -120px; right: -80px;
+  background: radial-gradient(circle, rgba(26,58,107,0.2) 0%, transparent 70%);
+}
+.cafs-orb-2 {
+  width: 300px; height: 300px;
+  bottom: -80px; left: -60px;
+  background: radial-gradient(circle, rgba(74,144,217,0.1) 0%, transparent 70%);
+}
+
+.partner-badge-cafs {
+  background: rgba(26,58,107,0.12);
+  border: 1px solid rgba(26,58,107,0.35);
+  color: #7dd3fc;
+}
+
+.partner-title-cafs {
+  background: linear-gradient(135deg, #1a3a6b, #4a90d9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
 }
