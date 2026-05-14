@@ -330,7 +330,7 @@ export default function FAQ() {
         <div className="faq-stats-bar" ref={statsRef}>
           <div className="container">
             <div className="faq-stats-inner">
-              {[['3500+', 'Students Trained'], ['98%', 'Placement Rate'], ['100+', 'Hiring Partners'], ['250+', 'Courses Offered']].map(([n, l]) => (
+              {[['2800+', 'Students Trained'], ['98%', 'Placement Rate'], ['100+', 'Hiring Partners'], ['250+', 'Courses Offered']].map(([n, l]) => (
                 <div className="faq-stat" key={l}>
                   <strong>{n}</strong><span>{l}</span>
                 </div>

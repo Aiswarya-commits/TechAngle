@@ -682,7 +682,7 @@ const GALLERY = [
 ];
 
 const METRICS = [
-  { icon: '🎓', num: '3500+', label: 'Students Trained' },
+  { icon: '🎓', num: '2800+', label: 'Students Trained' },
   { icon: '💼', num: '200+', label: 'Students Placed' },
   { icon: '🏢', num: '80+', label: 'Partner Companies' },
   { icon: '⭐', num: '4.9', label: 'Average Rating' },
@@ -883,7 +883,7 @@ export default function SuccessStories() {
             Every story here is proof that the right training changes lives.
           </p>
           <div className="ss-hero__pills">
-            {[['3500+', 'Trained'], ['200+', 'Placed'], ['80+', 'Companies'], ['4.9★', 'Rating']].map(([n, l]) => (
+            {[['2800+', 'Trained'], ['200+', 'Placed'], ['80+', 'Companies'], ['4.9★', 'Rating']].map(([n, l]) => (
               <div key={l} className="ss-hero__stats-pill">
                 <span className="ss-hero__pill-n">{n}</span>
                 <span className="ss-hero__pill-l">{l}</span>

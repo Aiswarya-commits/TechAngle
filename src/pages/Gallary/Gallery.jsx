@@ -69,7 +69,7 @@ const CATEGORIES = [
 ];
 
 const STATS = [
-  { num: '3500+', label: 'Students Trained' },
+  { num: '2800+', label: 'Students Trained' },
   { num: '200+', label: 'Placed Successfully' },
   { num: '80+',  label: 'Partner Companies' },
   { num: '4.9★', label: 'Average Rating' },
