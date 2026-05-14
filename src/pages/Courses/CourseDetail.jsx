@@ -8,7 +8,7 @@ import AAPC from "../../../public/assets/AAPC.png"
 import CISI from "../../../public/assets/CISI.png"
 import CGIB from "../../../public/assets/CGBIImage.png"
 import BIM from "../../../public/assets/BIMLOGO.png"
-import CAFS from "../../../public/assets/CAFSLOGO.png"
+import CAFS from "../../../public/assets/CAFSLOGOS.png"
 
 gsap.registerPlugin(ScrollTrigger);
 

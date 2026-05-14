@@ -10,7 +10,7 @@ import AAPCLOGO from "../../../public/assets/AAPC.png"
 import CISILOGO from "../../../public/assets/CISI.png"
 import CGIBLOGO from "../../../public/assets/CGBIImage.png"
 import BIMLOGO from "../../../public/assets/BIMLOGO.png"
-import CAFSLOGO from "../../../public/assets/CAFSLOGO.png"
+import CAFSLOGO from "../../../public/assets/CAFSLOGOS.png"
 
 // import iotImage from '../../../public/assets/Iot.jpg';
 // import webImage from '../../../public/assets/web.jpg';

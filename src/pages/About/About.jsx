@@ -768,7 +768,7 @@ const About = () => {
               <p>Courses Offered</p>
             </div>
             <div className="number-item">
-              <h3>200+</h3>
+              <h3>100+</h3>
               <p>Hiring Partners</p>
             </div>
             <div className="number-item">

@@ -11,7 +11,7 @@ import MKCLLogo from '../../../public/assets/MKCL.png';
 import CISILogo from '../../../public/assets/CISI.png';
 import CGBI from '../../../public/assets/CGBIImage.png';
 import BIM from '../../../public/assets/BIMLOGO.png';
-import CAFS from '../../../public/assets/CAFSLOGO.png';
+import CAFS from '../../../public/assets/CAFSLOGOS.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -541,6 +541,18 @@ const Home = () => {
       title: 'Latest Technologies',
       description: 'Stay ahead with up-to-date industry trends',
       bg: '/images/bg1.jpg'
+    },
+    {
+      icon: '🎯',
+      title: 'National and international programs',
+      description: 'Enroll in prestigious national and international programs',
+      bg: '/images/bg1.jpg'
+    },
+    {
+      icon: '🏅',
+      title: '⁠internship Opportunity',
+      description: 'Gain valuable experience with our internship programs',
+      bg: '/images/bg1.jpg'
     }
   ];
 
@@ -563,21 +575,21 @@ const Home = () => {
     {
       title: 'Admission Open - Latest Batch Starting Soon',
       category: 'Announcement',
-      date: 'Feb 10, 2026',
+      // date: 'Feb 10, 2026',
       image: '📢',
       color: '#ec4899'
     },
     {
       title: 'Internship Corner - New Opportunities with Tech Giants',
       category: 'Opportunities',
-      date: 'Feb 8, 2026',
+      // date: 'Feb 8, 2026',
       image: '💼',
       color: '#8b5cf6'
     },
     {
       title: 'Exploring Future Possibilities of AI with Industry Leaders',
       category: 'Workshop',
-      date: 'Feb 5, 2026',
+      // date: 'Feb 5, 2026',
       image: '🎓',
       color: '#6366f1'
     }
@@ -679,22 +691,26 @@ const Home = () => {
             <h2>TechAngle Accreditations</h2>
           </div>
           <div className="accreditations-grid">
-            <div className="accreditation-badge">
+                        <div className="accreditation-badge">
               <a
-                // href="https://codingclarified.com/what-it-means-to-be-an-aapc-education-provider/"
+                // href="https://www.cisi.org/cisiweb2"
                 target="_blank"
                 rel="noreferrer"
                 style={{ textDecoration: 'none', cursor: 'pointer' }}
               >
-                <div className="badge-circle">
-                  <span className="badge-text"><img src={AAPCLogo} style={{height:"100px"}}></img></span>
-                  <span className="badge-text" style={{ display: 'none' }}><img src={AAPCLogo}></img></span>
-                </div>
+              <div className="badge-circle">
+                <img
+                  src="https://www.cisi.org/cisiweb2/images/cisi-logo.png"
+                  alt="CISI"
+                  style={{ width: '80%', objectFit: 'contain' }}
+                  onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
+                />
+                <span className="badge-text" style={{ display: 'none' }}><img src={CGBI} style={{height:"100px"}}></img></span>
+              </div>
               </a>
-              <p>AAPC Education Provider</p>
-                          <p>In association with <strong>Irez Academy</strong></p>
-
+              <p>Chartered Global Investment Banker</p>
             </div>
+
             <div className="accreditation-badge">
               <a
                 // href="https://www.mkcl.org/"
@@ -728,25 +744,23 @@ const Home = () => {
               </a>
               <p>Chartered Institute for Securities & Investment</p>
             </div>
-            <div className="accreditation-badge">
+                        <div className="accreditation-badge">
               <a
-                // href="https://www.cisi.org/cisiweb2"
+                // href="https://codingclarified.com/what-it-means-to-be-an-aapc-education-provider/"
                 target="_blank"
                 rel="noreferrer"
                 style={{ textDecoration: 'none', cursor: 'pointer' }}
               >
-              <div className="badge-circle">
-                <img
-                  src="https://www.cisi.org/cisiweb2/images/cisi-logo.png"
-                  alt="CISI"
-                  style={{ width: '80%', objectFit: 'contain' }}
-                  onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
-                />
-                <span className="badge-text" style={{ display: 'none' }}><img src={CGBI} style={{height:"100px"}}></img></span>
-              </div>
+                <div className="badge-circle">
+                  <span className="badge-text"><img src={AAPCLogo} style={{height:"100px"}}></img></span>
+                  <span className="badge-text" style={{ display: 'none' }}><img src={AAPCLogo}></img></span>
+                </div>
               </a>
-              <p>Chartered Global Investment Banker</p>
+              <p>AAPC Education Provider</p>
+                          <p>In association with <strong>Irez Academy</strong></p>
+
             </div>
+
             <div className="accreditation-badge">
               <a
                 // href="https://www.cisi.org/cisiweb2"
@@ -764,7 +778,7 @@ const Home = () => {
                 <span className="badge-text" style={{ display: 'none' }}><img src={CGBI} style={{height:"100px"}}></img></span>
               </div>
               </a>
-              <p>Building information System</p>
+              <p>Building Information System</p>
             </div>
             <div className="accreditation-badge">
               <a
@@ -844,7 +858,7 @@ const Home = () => {
           </div>
           <div className="view-all-btn-container">
             <p className="courses-contact-text">
-              Do You Have 2+ options that starting Feb 2026?
+              Do You Have 2+ options that starting Your Career?
               <Link to="/contact"> Contact Us</Link>
             </p>
             <Link to="/courses">
