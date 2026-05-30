@@ -354,7 +354,7 @@
   display: inline-block;
   transition: var(--transition);
   text-align: center;
-  margin-left: 110px;
+  margin-left: 10px;
 }
 
 .home-course-card:hover .course-icon {

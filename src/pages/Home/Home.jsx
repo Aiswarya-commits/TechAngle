@@ -12,6 +12,7 @@ import CISILogo from '../../../public/assets/CISI.png';
 import CGBI from '../../../public/assets/CGBIImage.png';
 import BIM from '../../../public/assets/BIMLOGO.png';
 import CAFS from '../../../public/assets/CAFSLOGOS.png';
+import GVMT from '../../../public/assets/GVMT.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -123,16 +124,11 @@ const Home = () => {
             }
           });
         }
-        // Stacked cards animation
-        const cards = aboutRef.current.querySelectorAll(".card");
 
+        const cards = aboutRef.current.querySelectorAll(".card");
         if (cards.length > 0) {
           gsap.fromTo(cards,
-            {
-              y: 80,
-              opacity: 0,
-              scale: 0.8
-            },
+            { y: 80, opacity: 0, scale: 0.8 },
             {
               y: 0,
               opacity: 1,
@@ -420,75 +416,53 @@ const Home = () => {
 
   const courses = [
     {
-      title: 'CBSE Computing Skills Program',
-      description: 'Computer Applications, Computer Science, Information Technology and Informatics Practices for Class 9-12',
-      icon: '🖥️',
+      title: 'Investment Banking',
+      description: 'An Investment Banking Course provides training in financial modeling, valuation, corporate finance, and mergers & acquisitions, preparing learners for careers in investment banking and financial services.',
+      icon: '🏦',
+      isImage: false,
       color: '#6366f1',
       slug: 'cbse-computing'
     },
     {
-      title: 'Mastery Data Platform',
-      description: 'Master data analytics, business intelligence and data platform tools for modern data-driven decisions',
+      title: 'Certified Anti-Financial Crime Specialist (CAFS -UK)',
+      description: 'Acquire advanced knowledge in anti-money laundering (AML), fraud detection, compliance management, and financial crime prevention through an internationally recognized UK certification',
       icon: '📊',
+      isImage: false,
       color: '#8b5cf6',
       slug: 'mastery-data-platform'
     },
     {
-      title: 'Digital Designing',
-      description: 'Learn UI/UX, graphic design, Figma, Adobe tools and modern digital design principles',
-      icon: '🎨',
+      title: 'Wealth & Investment Banking',
+      description: 'Build professional skills in wealth management, portfolio advisory, investment planning, and private banking services tailored for the modern financial industry.',
+      icon: '💰',
+      isImage: false,
       color: '#ec4899',
       slug: 'digital-designing'
     },
     {
-      title: 'Google Certification Program',
-      description: 'Prepare and earn Google certifications in digital marketing, cloud, data analytics and more',
-      icon: '🔵',
+      title: 'Medical Coding',
+      description: 'Gain professional training in transforming medical diagnoses, procedures, and healthcare services into standardized codes used for medical billing, insurance processing, and healthcare documentation worldwide.',
+      icon: '🏥',
+      isImage: false,
       color: '#10b981',
       slug: 'google-certification'
     },
     {
-      title: 'Financial Accounting',
-      description: 'Comprehensive financial accounting, Tally, GST and business accounting fundamentals',
-      icon: '💰',
+      title: 'Building Information System',
+      description: 'A Building Information System course teaches how to manage and use digital building data for planning, design, and construction projects.',
+      icon: '👷‍♂️',
+      isImage: false,
       color: '#f59e0b',
       slug: 'financial-accounting'
     },
     {
-      title: 'IT Hardware and Networking',
-      description: 'Hardware fundamentals, network setup, troubleshooting and IT infrastructure management',
-      icon: '🔧',
+      title: 'Government Certified 250 + Programs',
+      description: 'Explore a diverse portfolio of government-approved certification programs designed to enhance technical, professional, and employability skills across multiple career domains.',
+      icon: GVMT,       // ✅ imported image path
+      isImage: true,    // ✅ flag to render as <img>
       color: '#06b6d4',
       slug: 'it-hardware-networking'
     },
-    {
-      title: 'Management Level',
-      description: 'Business management, leadership skills and organizational management training programs',
-      icon: '👔',
-      color: '#6366f1',
-      slug: 'management-level'
-    },
-    {
-      title: 'Software Development',
-      description: 'Full stack development, programming languages, web and mobile app development',
-      icon: '💻',
-      color: '#8b5cf6',
-      slug: 'software-development'
-    },
-    {
-      title: 'Soft Skills',
-      description: 'Communication, leadership, teamwork, problem-solving and professional development skills',
-      icon: '🤝',
-      color: '#ec4899',
-      slug: 'soft-skills'
-    },
-    {
-      title: 'AI and Other Programs',
-      description: 'Artificial Intelligence, Machine Learning, Data Science and emerging technology programs',
-      icon: '🤖',
-      color: '#10b981',
-      slug: 'ai-programs'
-    }
   ];
   const whyChooseItems = [
     {
@@ -691,111 +665,81 @@ const Home = () => {
             <h2>TechAngle Accreditations</h2>
           </div>
           <div className="accreditations-grid">
-                        <div className="accreditation-badge">
-              <a
-                // href="https://www.cisi.org/cisiweb2"
-                target="_blank"
-                rel="noreferrer"
-                style={{ textDecoration: 'none', cursor: 'pointer' }}
-              >
-              <div className="badge-circle">
-                <img
-                  src="https://www.cisi.org/cisiweb2/images/cisi-logo.png"
-                  alt="CISI"
-                  style={{ width: '80%', objectFit: 'contain' }}
-                  onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
-                />
-                <span className="badge-text" style={{ display: 'none' }}><img src={CGBI} style={{height:"100px"}}></img></span>
-              </div>
+            <div className="accreditation-badge">
+              <a target="_blank" rel="noreferrer" style={{ textDecoration: 'none', cursor: 'pointer' }}>
+                <div className="badge-circle">
+                  <img
+                    src="https://www.cisi.org/cisiweb2/images/cisi-logo.png"
+                    alt="CISI"
+                    style={{ width: '80%', objectFit: 'contain' }}
+                    onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
+                  />
+                  <span className="badge-text" style={{ display: 'none' }}><img src={CGBI} style={{ height: "100px" }} alt="CGBI" /></span>
+                </div>
               </a>
               <p>Chartered Global Investment Banker</p>
             </div>
 
             <div className="accreditation-badge">
-              <a
-                // href="https://www.mkcl.org/"
-                target="_blank"
-                rel="noreferrer"
-                style={{ textDecoration: 'none', cursor: 'pointer' }}
-              >
-              <div className="badge-circle">
-                <span className="badge-text"><img src={MKCLLogo} style={{height:"100px"}}></img></span>
-                <span className="badge-text" style={{ display: 'none' }}><img src={MKCLLogo} style={{height:"100px"}}></img></span>
-              </div>
+              <a target="_blank" rel="noreferrer" style={{ textDecoration: 'none', cursor: 'pointer' }}>
+                <div className="badge-circle">
+                  <span className="badge-text"><img src={MKCLLogo} style={{ height: "100px" }} alt="MKCL" /></span>
+                  <span className="badge-text" style={{ display: 'none' }}><img src={MKCLLogo} style={{ height: "100px" }} alt="MKCL" /></span>
+                </div>
               </a>
               <p>Maharashtra Knowledge Corporation Limited</p>
             </div>
             <div className="accreditation-badge">
-              <a
-                // href="https://www.cisi.org/cisiweb2"
-                target="_blank"
-                rel="noreferrer"
-                style={{ textDecoration: 'none', cursor: 'pointer' }}
-              >
-              <div className="badge-circle">
-                <img
-                  src="https://www.cisi.org/cisiweb2/images/cisi-logo.png"
-                  alt="CISI"
-                  style={{ width: '80%', objectFit: 'contain' }}
-                  onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
-                />
-                <span className="badge-text" style={{ display: 'none' }}><img src={CISILogo} style={{height:"100px"}}></img></span>
-              </div>
+              <a target="_blank" rel="noreferrer" style={{ textDecoration: 'none', cursor: 'pointer' }}>
+                <div className="badge-circle">
+                  <img
+                    src="https://www.cisi.org/cisiweb2/images/cisi-logo.png"
+                    alt="CISI"
+                    style={{ width: '80%', objectFit: 'contain' }}
+                    onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
+                  />
+                  <span className="badge-text" style={{ display: 'none' }}><img src={CISILogo} style={{ height: "100px" }} alt="CISI" /></span>
+                </div>
               </a>
               <p>Chartered Institute for Securities & Investment</p>
             </div>
-                        <div className="accreditation-badge">
-              <a
-                // href="https://codingclarified.com/what-it-means-to-be-an-aapc-education-provider/"
-                target="_blank"
-                rel="noreferrer"
-                style={{ textDecoration: 'none', cursor: 'pointer' }}
-              >
+            <div className="accreditation-badge">
+              <a target="_blank" rel="noreferrer" style={{ textDecoration: 'none', cursor: 'pointer' }}>
                 <div className="badge-circle">
-                  <span className="badge-text"><img src={AAPCLogo} style={{height:"100px"}}></img></span>
-                  <span className="badge-text" style={{ display: 'none' }}><img src={AAPCLogo}></img></span>
+                  <span className="badge-text"><img src={AAPCLogo} style={{ height: "100px" }} alt="AAPC" /></span>
+                  <span className="badge-text" style={{ display: 'none' }}><img src={AAPCLogo} alt="AAPC" /></span>
                 </div>
               </a>
               <p>AAPC Education Provider</p>
-                          <p>In association with <strong>Irez Academy</strong></p>
+              <p>In association with <strong>Irez Academy</strong></p>
 
             </div>
 
             <div className="accreditation-badge">
-              <a
-                // href="https://www.cisi.org/cisiweb2"
-                target="_blank"
-                rel="noreferrer"
-                style={{ textDecoration: 'none', cursor: 'pointer' }}
-              >
-              <div className="badge-circle">
-                <img
-                  src={BIM}
-                  alt="BIM"
-                  style={{ width: '80%', objectFit: 'contain' }}
-                  onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
-                />
-                <span className="badge-text" style={{ display: 'none' }}><img src={CGBI} style={{height:"100px"}}></img></span>
-              </div>
+              <a target="_blank" rel="noreferrer" style={{ textDecoration: 'none', cursor: 'pointer' }}>
+                <div className="badge-circle">
+                  <img
+                    src={BIM}
+                    alt="BIM"
+                    style={{ width: '80%', objectFit: 'contain' }}
+                    onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
+                  />
+                  <span className="badge-text" style={{ display: 'none' }}><img src={CGBI} style={{ height: "100px" }} alt="CGBI" /></span>
+                </div>
               </a>
               <p>Building Information System</p>
             </div>
             <div className="accreditation-badge">
-              <a
-                // href="https://www.cisi.org/cisiweb2"
-                target="_blank"
-                rel="noreferrer"
-                style={{ textDecoration: 'none', cursor: 'pointer' }}
-              >
-              <div className="badge-circle">
-                <img
-                  src={CAFS}
-                  alt="CAFS"
-                  style={{ width: '100%', objectFit: 'contain' ,color : 'white',}}
-                  onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
-                />
-                <span className="badge-text" style={{ display: 'none' }}><img src={CGBI} style={{height:"100px"}}></img></span>
-              </div>
+              <a target="_blank" rel="noreferrer" style={{ textDecoration: 'none', cursor: 'pointer' }}>
+                <div className="badge-circle">
+                  <img
+                    src={CAFS}
+                    alt="CAFS"
+                    style={{ width: '100%', objectFit: 'contain', color: 'white' }}
+                    onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
+                  />
+                  <span className="badge-text" style={{ display: 'none' }}><img src={CGBI} style={{ height: "100px" }} alt="CGBI" /></span>
+                </div>
               </a>
               <p>Certified Anti-Financial Crime Specialist</p>
             </div>
@@ -845,7 +789,18 @@ const Home = () => {
                   className="home-course-card"
                   style={{ '--card-color': course.color }}
                 >
-                  <div className="course-icon">{course.icon}</div>
+                  {/* ✅ Fixed: render image or emoji based on isImage flag */}
+                  <div className="course-icon">
+                    {course.isImage ? (
+                      <img
+                        src={course.icon}
+                        alt={course.title}
+                        style={{ width: '60px', height: '60px', objectFit: 'contain' }}
+                      />
+                    ) : (
+                      course.icon
+                    )}
+                  </div>
                   <h3 style={{ textAlign: "center" }}>{course.title}</h3>
                   <p style={{ textAlign: "center" }}>{course.description}</p>
                   <button className="learn-more-btn">

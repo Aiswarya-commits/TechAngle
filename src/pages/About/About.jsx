@@ -356,12 +356,12 @@ const About = () => {
     {
       icon: '🎯',
       title: 'Our Mission',
-      description: 'To provide world-class tech education that empowers individuals to achieve their career goals and drive innovation in the technology industry.'
+      description: 'To revolutionize professional education through future-focused learning, global certifications, industry integration, and advanced skill development that empowers individuals to lead in a rapidly evolving world.'
     },
     {
       icon: '👁️',
       title: 'Our Vision',
-      description: 'To be the leading training institute in India, recognized for excellence in tech education and producing industry-ready professionals.'
+      description: 'Building the next generation of industry leaders, innovators, and global professionals.'
     },
     {
       icon: '⚡',
