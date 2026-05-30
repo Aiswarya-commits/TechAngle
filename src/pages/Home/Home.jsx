@@ -421,7 +421,7 @@ const Home = () => {
       icon: '🏦',
       isImage: false,
       color: '#6366f1',
-      slug: 'cbse-computing'
+      slug: 'courses'
     },
     {
       title: 'Certified Anti-Financial Crime Specialist (CAFS -UK)',
@@ -429,7 +429,7 @@ const Home = () => {
       icon: '📊',
       isImage: false,
       color: '#8b5cf6',
-      slug: 'mastery-data-platform'
+      slug: 'courses'
     },
     {
       title: 'Wealth & Investment Banking',
@@ -437,7 +437,7 @@ const Home = () => {
       icon: '💰',
       isImage: false,
       color: '#ec4899',
-      slug: 'digital-designing'
+      slug: 'courses'
     },
     {
       title: 'Medical Coding',
@@ -445,7 +445,7 @@ const Home = () => {
       icon: '🏥',
       isImage: false,
       color: '#10b981',
-      slug: 'google-certification'
+      slug: 'courses'
     },
     {
       title: 'Building Information System',
@@ -453,7 +453,7 @@ const Home = () => {
       icon: '👷‍♂️',
       isImage: false,
       color: '#f59e0b',
-      slug: 'financial-accounting'
+      slug: 'courses'
     },
     {
       title: 'Government Certified 250 + Programs',
@@ -461,7 +461,7 @@ const Home = () => {
       icon: GVMT,       // ✅ imported image path
       isImage: true,    // ✅ flag to render as <img>
       color: '#06b6d4',
-      slug: 'it-hardware-networking'
+      slug: 'courses'
     },
   ];
   const whyChooseItems = [
@@ -781,7 +781,7 @@ const Home = () => {
           <div className="home-courses-grid">
             {courses.map((course, i) => (
               <Link
-                to={`/courses/${course.slug}`}
+                to={`/${course.slug}`}
                 key={i}
                 style={{ textDecoration: 'none' }}
               >
