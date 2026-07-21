@@ -89,7 +89,7 @@ const Footer = () => {
             <ul className="contact-info">
               <li>
                 <span className="icon">📍</span>
-                <span>Infopark, Kakkanad<br />Kochi | Chennai, India </span>
+                <span>SUNPAUL DEZIRA BLUE BERRY, at Info park Express Way<br />Rajgiri P. O., Pin-682039 </span>
               </li>
               <li>
                 <span className="icon">📧</span>
