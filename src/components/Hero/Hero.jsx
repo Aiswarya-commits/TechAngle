@@ -190,7 +190,7 @@ const Hero = () => {
             {/* Video */}
             <video autoPlay loop playsInline               className="vm-video"
 >
-              <source src="/assets/Techangle-introvdo.mp4" type="video/mp4" />
+              <source src="/assets/IntroVideo.mp4" type="video/mp4" />
             </video>
           </div>
         </div>
